@@ -1,0 +1,2088 @@
+{
+  "schemaVersion": "1.0",
+  "app": "Human Lab",
+  "notes": "Starter taxonomy. Categories are selectable user goals. Experiments link to categories through their categories array. categoryCount shows how many categories each experiment belongs to.",
+  "categories": [
+    {
+      "id": "sleep",
+      "name": "Sleep",
+      "emoji": "😴",
+      "description": "Improve sleep quality, consistency, and recovery.",
+      "experimentCount": 9,
+      "experimentIds": [
+        "morning_sunlight",
+        "magnesium_glycinate",
+        "consistent_bedtime",
+        "no_screens_before_bed",
+        "cold_bedroom",
+        "reading_before_bed",
+        "caffeine_delay",
+        "sleep_optimization",
+        "watch_sunrise"
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "Energy",
+      "emoji": "⚡",
+      "description": "Feel more alert, energized, and physically ready.",
+      "experimentCount": 17,
+      "experimentIds": [
+        "morning_sunlight",
+        "consistent_bedtime",
+        "walk_8000_steps",
+        "electrolytes",
+        "hydration_goal",
+        "protein_breakfast",
+        "caffeine_delay",
+        "nature_walk",
+        "resistance_training",
+        "daily_walk",
+        "zone_2_cardio",
+        "fiber_goal",
+        "intermittent_fasting",
+        "no_liquid_calories",
+        "walking",
+        "sleep_optimization",
+        "mediterranean_diet"
+      ]
+    },
+    {
+      "id": "focus",
+      "name": "Focus",
+      "emoji": "🧠",
+      "description": "Improve concentration, clarity, and attention.",
+      "experimentCount": 13,
+      "experimentIds": [
+        "no_screens_before_bed",
+        "caffeine_delay",
+        "creatine",
+        "meditation",
+        "deep_work_session",
+        "pomodoro_method",
+        "notification_detox",
+        "single_tasking",
+        "box_breathing",
+        "read_10_pages",
+        "learn_language",
+        "active_recall",
+        "spaced_repetition"
+      ]
+    },
+    {
+      "id": "mood",
+      "name": "Mood",
+      "emoji": "😊",
+      "description": "Feel happier, more positive, and emotionally steady.",
+      "experimentCount": 20,
+      "experimentIds": [
+        "morning_sunlight",
+        "meditation",
+        "gratitude_journal",
+        "nature_walk",
+        "exercise",
+        "make_someone_smile",
+        "random_act_of_kindness",
+        "journaling",
+        "surprise_someone_nice",
+        "date_night",
+        "make_stranger_laugh",
+        "go_for_hike",
+        "try_new_restaurant_happy_hour",
+        "explore_new_area",
+        "take_day_trip",
+        "watch_sunrise",
+        "volunteer",
+        "reconnect_with_someone",
+        "thankful_before_dinner",
+        "make_old_person_laugh"
+      ]
+    },
+    {
+      "id": "fitness",
+      "name": "Fitness",
+      "emoji": "💪",
+      "description": "Build strength, endurance, and physical capability.",
+      "experimentCount": 13,
+      "experimentIds": [
+        "walk_8000_steps",
+        "electrolytes",
+        "hydration_goal",
+        "protein_breakfast",
+        "creatine",
+        "exercise",
+        "resistance_training",
+        "protein_goal",
+        "daily_walk",
+        "mobility_routine",
+        "zone_2_cardio",
+        "walking",
+        "go_for_hike"
+      ]
+    },
+    {
+      "id": "weight_loss",
+      "name": "Weight Loss",
+      "emoji": "⚖️",
+      "description": "Support fat loss, appetite control, and healthier habits.",
+      "experimentCount": 11,
+      "experimentIds": [
+        "walk_8000_steps",
+        "hydration_goal",
+        "protein_breakfast",
+        "protein_goal",
+        "daily_walk",
+        "food_logging",
+        "fiber_goal",
+        "intermittent_fasting",
+        "no_liquid_calories",
+        "walking",
+        "mediterranean_diet"
+      ]
+    },
+    {
+      "id": "stress",
+      "name": "Stress",
+      "emoji": "😌",
+      "description": "Reduce tension, anxiety, and mental overload.",
+      "experimentCount": 12,
+      "experimentIds": [
+        "magnesium_glycinate",
+        "cold_bedroom",
+        "reading_before_bed",
+        "meditation",
+        "notification_detox",
+        "gratitude_journal",
+        "nature_walk",
+        "exercise",
+        "mobility_routine",
+        "box_breathing",
+        "journaling",
+        "go_for_hike"
+      ]
+    },
+    {
+      "id": "relationships",
+      "name": "Relationships",
+      "emoji": "❤️",
+      "description": "Improve connection with friends, family, and partners.",
+      "experimentCount": 19,
+      "experimentIds": [
+        "make_someone_smile",
+        "random_act_of_kindness",
+        "buy_someone_flowers",
+        "surprise_someone_nice",
+        "handwrite_letter",
+        "call_parent_grandparent",
+        "tell_someone_good_job",
+        "date_night",
+        "start_one_conversation",
+        "make_stranger_laugh",
+        "give_genuine_compliment",
+        "introduce_yourself_first",
+        "try_new_restaurant_happy_hour",
+        "take_day_trip",
+        "volunteer",
+        "help_without_recognition",
+        "reconnect_with_someone",
+        "thankful_before_dinner",
+        "make_old_person_laugh"
+      ]
+    },
+    {
+      "id": "confidence",
+      "name": "Confidence",
+      "emoji": "😎",
+      "description": "Build social courage, self-belief, and comfort in action.",
+      "experimentCount": 12,
+      "experimentIds": [
+        "make_someone_smile",
+        "tell_someone_good_job",
+        "start_one_conversation",
+        "make_stranger_laugh",
+        "give_genuine_compliment",
+        "attend_event_alone",
+        "introduce_yourself_first",
+        "learn_language",
+        "teach_someone",
+        "explore_new_area",
+        "write_5_life_goals",
+        "make_old_person_laugh"
+      ]
+    },
+    {
+      "id": "money",
+      "name": "Money",
+      "emoji": "💰",
+      "description": "Improve financial habits, awareness, and discipline.",
+      "experimentCount": 6,
+      "experimentIds": [
+        "food_logging",
+        "track_expenses",
+        "no_spend_day",
+        "budget_review",
+        "automatic_investing",
+        "savings_challenge"
+      ]
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "emoji": "📚",
+      "description": "Learn faster, retain more, and build useful skills.",
+      "experimentCount": 10,
+      "experimentIds": [
+        "reading_before_bed",
+        "deep_work_session",
+        "pomodoro_method",
+        "single_tasking",
+        "read_10_pages",
+        "learn_language",
+        "teach_someone",
+        "active_recall",
+        "spaced_repetition",
+        "write_5_life_goals"
+      ]
+    },
+    {
+      "id": "longevity",
+      "name": "Longevity",
+      "emoji": "🧬",
+      "description": "Support long-term healthspan and disease prevention.",
+      "experimentCount": 12,
+      "experimentIds": [
+        "walk_8000_steps",
+        "creatine",
+        "exercise",
+        "resistance_training",
+        "daily_walk",
+        "mobility_routine",
+        "zone_2_cardio",
+        "fiber_goal",
+        "walking",
+        "sleep_optimization",
+        "mediterranean_diet",
+        "blood_pressure_tracking"
+      ]
+    },
+    {
+      "id": "adventure",
+      "name": "Adventure",
+      "emoji": "🌎",
+      "description": "Add novelty, exploration, and memorable experiences.",
+      "experimentCount": 7,
+      "experimentIds": [
+        "nature_walk",
+        "attend_event_alone",
+        "go_for_hike",
+        "try_new_restaurant_happy_hour",
+        "explore_new_area",
+        "take_day_trip",
+        "watch_sunrise"
+      ]
+    },
+    {
+      "id": "better_human",
+      "name": "Better Human",
+      "emoji": "🎯",
+      "description": "Practice kindness, purpose, gratitude, and character.",
+      "experimentCount": 18,
+      "experimentIds": [
+        "gratitude_journal",
+        "make_someone_smile",
+        "random_act_of_kindness",
+        "journaling",
+        "buy_someone_flowers",
+        "surprise_someone_nice",
+        "handwrite_letter",
+        "call_parent_grandparent",
+        "tell_someone_good_job",
+        "make_stranger_laugh",
+        "give_genuine_compliment",
+        "teach_someone",
+        "volunteer",
+        "help_without_recognition",
+        "reconnect_with_someone",
+        "write_5_life_goals",
+        "thankful_before_dinner",
+        "make_old_person_laugh"
+      ]
+    },
+    {
+      "id": "purchases_products",
+      "name": "Purchases & Products",
+      "emoji": "🛒",
+      "description": "Experiments that require buying a supplement, product, tool, or paid experience.",
+      "experimentCount": 9,
+      "experimentIds": [
+        "magnesium_glycinate",
+        "electrolytes",
+        "creatine",
+        "buy_someone_flowers",
+        "date_night",
+        "mediterranean_diet",
+        "blood_pressure_tracking",
+        "try_new_restaurant_happy_hour",
+        "take_day_trip"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "morning_sunlight",
+      "name": "Morning Sunlight",
+      "categories": [
+        "sleep",
+        "energy",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Energy",
+        "Mood"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 5,
+      "premiumFeature": false
+    },
+    {
+      "id": "magnesium_glycinate",
+      "name": "Magnesium Glycinate",
+      "categories": [
+        "sleep",
+        "stress",
+        "purchases_products"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Stress",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "consistent_bedtime",
+      "name": "Consistent Bedtime",
+      "categories": [
+        "sleep",
+        "energy"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Energy"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "no_screens_before_bed",
+      "name": "No Screens Before Bed",
+      "categories": [
+        "sleep",
+        "focus"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Focus"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "cold_bedroom",
+      "name": "Cold Bedroom",
+      "categories": [
+        "sleep",
+        "stress"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Stress"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "reading_before_bed",
+      "name": "Reading Before Bed",
+      "categories": [
+        "sleep",
+        "stress",
+        "learning"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Sleep",
+        "Stress",
+        "Learning"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "walk_8000_steps",
+      "name": "Walk 8,000 Steps",
+      "categories": [
+        "energy",
+        "fitness",
+        "longevity",
+        "weight_loss"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Energy",
+        "Fitness",
+        "Longevity",
+        "Weight Loss"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "electrolytes",
+      "name": "Electrolytes",
+      "categories": [
+        "energy",
+        "fitness",
+        "purchases_products"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Energy",
+        "Fitness",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "hydration_goal",
+      "name": "Hydration Goal",
+      "categories": [
+        "energy",
+        "fitness",
+        "weight_loss"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Energy",
+        "Fitness",
+        "Weight Loss"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "protein_breakfast",
+      "name": "Protein Breakfast",
+      "categories": [
+        "energy",
+        "fitness",
+        "weight_loss"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Energy",
+        "Fitness",
+        "Weight Loss"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "caffeine_delay",
+      "name": "Caffeine Delay",
+      "categories": [
+        "energy",
+        "focus",
+        "sleep"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Energy",
+        "Focus",
+        "Sleep"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "creatine",
+      "name": "Creatine",
+      "categories": [
+        "focus",
+        "fitness",
+        "longevity",
+        "purchases_products"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Focus",
+        "Fitness",
+        "Longevity",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "meditation",
+      "name": "Meditation",
+      "categories": [
+        "focus",
+        "stress",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Focus",
+        "Stress",
+        "Mood"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "deep_work_session",
+      "name": "Deep Work Session",
+      "categories": [
+        "focus",
+        "learning"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Focus",
+        "Learning"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "pomodoro_method",
+      "name": "Pomodoro Method",
+      "categories": [
+        "focus",
+        "learning"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Focus",
+        "Learning"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "notification_detox",
+      "name": "Notification Detox",
+      "categories": [
+        "focus",
+        "stress"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Focus",
+        "Stress"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "single_tasking",
+      "name": "Single Tasking",
+      "categories": [
+        "focus",
+        "learning"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Focus",
+        "Learning"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "gratitude_journal",
+      "name": "Gratitude Journal",
+      "categories": [
+        "mood",
+        "stress",
+        "better_human"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Mood",
+        "Stress",
+        "Better Human"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "nature_walk",
+      "name": "Nature Walk",
+      "categories": [
+        "mood",
+        "stress",
+        "energy",
+        "adventure"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Mood",
+        "Stress",
+        "Energy",
+        "Adventure"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "exercise",
+      "name": "Exercise",
+      "categories": [
+        "mood",
+        "fitness",
+        "longevity",
+        "stress"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Mood",
+        "Fitness",
+        "Longevity",
+        "Stress"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "make_someone_smile",
+      "name": "Make Someone Smile",
+      "categories": [
+        "mood",
+        "better_human",
+        "relationships",
+        "confidence"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Mood",
+        "Better Human",
+        "Relationships",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 5,
+      "premiumFeature": false
+    },
+    {
+      "id": "random_act_of_kindness",
+      "name": "Random Act Of Kindness",
+      "categories": [
+        "mood",
+        "better_human",
+        "relationships"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Mood",
+        "Better Human",
+        "Relationships"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "resistance_training",
+      "name": "Resistance Training",
+      "categories": [
+        "fitness",
+        "longevity",
+        "energy"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Fitness",
+        "Longevity",
+        "Energy"
+      ],
+      "difficulty": 3,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "protein_goal",
+      "name": "Protein Goal",
+      "categories": [
+        "fitness",
+        "weight_loss"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Fitness",
+        "Weight Loss"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "daily_walk",
+      "name": "Daily Walk",
+      "categories": [
+        "fitness",
+        "weight_loss",
+        "energy",
+        "longevity"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Fitness",
+        "Weight Loss",
+        "Energy",
+        "Longevity"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "mobility_routine",
+      "name": "Mobility Routine",
+      "categories": [
+        "fitness",
+        "longevity",
+        "stress"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Fitness",
+        "Longevity",
+        "Stress"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "zone_2_cardio",
+      "name": "Zone 2 Cardio",
+      "categories": [
+        "fitness",
+        "longevity",
+        "energy"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Fitness",
+        "Longevity",
+        "Energy"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "food_logging",
+      "name": "Food Logging",
+      "categories": [
+        "weight_loss",
+        "money"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Weight Loss",
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "fiber_goal",
+      "name": "Fiber Goal",
+      "categories": [
+        "weight_loss",
+        "longevity",
+        "energy"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Weight Loss",
+        "Longevity",
+        "Energy"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "intermittent_fasting",
+      "name": "Intermittent Fasting",
+      "categories": [
+        "weight_loss",
+        "energy"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Weight Loss",
+        "Energy"
+      ],
+      "difficulty": 3,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "no_liquid_calories",
+      "name": "No Liquid Calories",
+      "categories": [
+        "weight_loss",
+        "energy"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Weight Loss",
+        "Energy"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "box_breathing",
+      "name": "Box Breathing",
+      "categories": [
+        "stress",
+        "focus"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Stress",
+        "Focus"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 5,
+      "premiumFeature": false
+    },
+    {
+      "id": "journaling",
+      "name": "Journaling",
+      "categories": [
+        "stress",
+        "better_human",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Stress",
+        "Better Human",
+        "Mood"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "buy_someone_flowers",
+      "name": "Buy Someone Flowers",
+      "categories": [
+        "relationships",
+        "better_human",
+        "purchases_products"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Better Human",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 5,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "surprise_someone_nice",
+      "name": "Surprise Someone With Something Nice",
+      "categories": [
+        "relationships",
+        "better_human",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Better Human",
+        "Mood"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "handwrite_letter",
+      "name": "Handwrite A Letter To Someone You Love",
+      "categories": [
+        "relationships",
+        "better_human"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Better Human"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "call_parent_grandparent",
+      "name": "Call A Parent Or Grandparent",
+      "categories": [
+        "relationships",
+        "better_human"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Better Human"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "tell_someone_good_job",
+      "name": "Tell Someone They Did A Good Job",
+      "categories": [
+        "relationships",
+        "better_human",
+        "confidence"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Better Human",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 5,
+      "premiumFeature": false
+    },
+    {
+      "id": "date_night",
+      "name": "Date Night",
+      "categories": [
+        "relationships",
+        "mood",
+        "purchases_products"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Relationships",
+        "Mood",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "start_one_conversation",
+      "name": "Start One Random Conversation",
+      "categories": [
+        "confidence",
+        "relationships"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Confidence",
+        "Relationships"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "make_stranger_laugh",
+      "name": "Make A Stranger Laugh",
+      "categories": [
+        "confidence",
+        "relationships",
+        "mood",
+        "better_human"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Confidence",
+        "Relationships",
+        "Mood",
+        "Better Human"
+      ],
+      "difficulty": 4,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 5,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "give_genuine_compliment",
+      "name": "Give A Genuine Compliment",
+      "categories": [
+        "confidence",
+        "relationships",
+        "better_human"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Confidence",
+        "Relationships",
+        "Better Human"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 5,
+      "premiumFeature": false
+    },
+    {
+      "id": "attend_event_alone",
+      "name": "Attend An Event Alone",
+      "categories": [
+        "confidence",
+        "adventure"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Confidence",
+        "Adventure"
+      ],
+      "difficulty": 3,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "introduce_yourself_first",
+      "name": "Introduce Yourself First",
+      "categories": [
+        "confidence",
+        "relationships"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Confidence",
+        "Relationships"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "track_expenses",
+      "name": "Track Expenses",
+      "categories": [
+        "money"
+      ],
+      "categoryCount": 1,
+      "linkedCategoryNames": [
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "no_spend_day",
+      "name": "No Spend Day",
+      "categories": [
+        "money"
+      ],
+      "categoryCount": 1,
+      "linkedCategoryNames": [
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "budget_review",
+      "name": "Budget Review",
+      "categories": [
+        "money"
+      ],
+      "categoryCount": 1,
+      "linkedCategoryNames": [
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "automatic_investing",
+      "name": "Automatic Investing",
+      "categories": [
+        "money"
+      ],
+      "categoryCount": 1,
+      "linkedCategoryNames": [
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "savings_challenge",
+      "name": "Savings Challenge",
+      "categories": [
+        "money"
+      ],
+      "categoryCount": 1,
+      "linkedCategoryNames": [
+        "Money"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "read_10_pages",
+      "name": "Read 10 Pages",
+      "categories": [
+        "learning",
+        "focus"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Learning",
+        "Focus"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "learn_language",
+      "name": "Learn A Language",
+      "categories": [
+        "learning",
+        "focus",
+        "confidence"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Learning",
+        "Focus",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 4,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "teach_someone",
+      "name": "Teach Someone Something",
+      "categories": [
+        "learning",
+        "better_human",
+        "confidence"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Learning",
+        "Better Human",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "active_recall",
+      "name": "Active Recall",
+      "categories": [
+        "learning",
+        "focus"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Learning",
+        "Focus"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "spaced_repetition",
+      "name": "Spaced Repetition",
+      "categories": [
+        "learning",
+        "focus"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Learning",
+        "Focus"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "walking",
+      "name": "Walking",
+      "categories": [
+        "longevity",
+        "fitness",
+        "energy",
+        "weight_loss"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Longevity",
+        "Fitness",
+        "Energy",
+        "Weight Loss"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "sleep_optimization",
+      "name": "Sleep Optimization",
+      "categories": [
+        "longevity",
+        "sleep",
+        "energy"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Longevity",
+        "Sleep",
+        "Energy"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 90,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "mediterranean_diet",
+      "name": "Mediterranean Diet",
+      "categories": [
+        "longevity",
+        "weight_loss",
+        "energy",
+        "purchases_products"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Longevity",
+        "Weight Loss",
+        "Energy",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "blood_pressure_tracking",
+      "name": "Blood Pressure Tracking",
+      "categories": [
+        "longevity",
+        "purchases_products"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Longevity",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 2,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "go_for_hike",
+      "name": "Go For A Hike",
+      "categories": [
+        "adventure",
+        "fitness",
+        "mood",
+        "stress"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Adventure",
+        "Fitness",
+        "Mood",
+        "Stress"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 5,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "try_new_restaurant_happy_hour",
+      "name": "Try A New Restaurant Or Happy Hour",
+      "categories": [
+        "adventure",
+        "relationships",
+        "mood",
+        "purchases_products"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Adventure",
+        "Relationships",
+        "Mood",
+        "Purchases & Products"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 5,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "explore_new_area",
+      "name": "Explore A New Area",
+      "categories": [
+        "adventure",
+        "mood",
+        "confidence"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Adventure",
+        "Mood",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "take_day_trip",
+      "name": "Take A Day Trip",
+      "categories": [
+        "adventure",
+        "mood",
+        "relationships",
+        "purchases_products"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Adventure",
+        "Mood",
+        "Relationships",
+        "Purchases & Products"
+      ],
+      "difficulty": 3,
+      "cost": {
+        "costType": "purchase",
+        "costTier": "varies",
+        "estimatedCostUsd": null
+      },
+      "funScore": 5,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "watch_sunrise",
+      "name": "Watch A Sunrise",
+      "categories": [
+        "adventure",
+        "mood",
+        "sleep"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Adventure",
+        "Mood",
+        "Sleep"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 5,
+      "socialScore": 1,
+      "scienceScore": 80,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "volunteer",
+      "name": "Volunteer",
+      "categories": [
+        "better_human",
+        "relationships",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Relationships",
+        "Mood"
+      ],
+      "difficulty": 3,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 45,
+      "premiumFeature": false
+    },
+    {
+      "id": "help_without_recognition",
+      "name": "Help Someone Without Recognition",
+      "categories": [
+        "better_human",
+        "relationships"
+      ],
+      "categoryCount": 2,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Relationships"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "reconnect_with_someone",
+      "name": "Reconnect With Someone",
+      "categories": [
+        "better_human",
+        "relationships",
+        "mood"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Relationships",
+        "Mood"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "write_5_life_goals",
+      "name": "Write Down 5 Life Goals",
+      "categories": [
+        "better_human",
+        "learning",
+        "confidence"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Learning",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "thankful_before_dinner",
+      "name": "Say What You're Thankful For Before Dinner",
+      "categories": [
+        "better_human",
+        "mood",
+        "relationships"
+      ],
+      "categoryCount": 3,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Mood",
+        "Relationships"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 4,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    },
+    {
+      "id": "make_old_person_laugh",
+      "name": "Make An Older Person Laugh",
+      "categories": [
+        "better_human",
+        "mood",
+        "relationships",
+        "confidence"
+      ],
+      "categoryCount": 4,
+      "linkedCategoryNames": [
+        "Better Human",
+        "Mood",
+        "Relationships",
+        "Confidence"
+      ],
+      "difficulty": 2,
+      "cost": {
+        "costType": "free",
+        "costTier": "free",
+        "estimatedCostUsd": 0
+      },
+      "funScore": 5,
+      "socialScore": 4,
+      "scienceScore": 60,
+      "timeMinutes": 10,
+      "premiumFeature": false
+    }
+  ]
+}

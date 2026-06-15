@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Human Lab — Test Build</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{
+  --lab-dark:#0a0e1a;--lab-deep:#111827;--lab-panel:#1a2235;--lab-border:#2a3550;
+  --neon-blue:#3b82f6;--neon-teal:#06d6a0;--neon-purple:#a855f7;--neon-yellow:#fbbf24;--neon-red:#f43f5e;
+  --text-bright:#f0f4ff;--text-mid:#94a3b8;--text-dim:#475569;--r:14px;--rm:10px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--lab-dark);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 0 80px;overflow-x:hidden;}
+.phone{width:375px;min-height:820px;background:var(--lab-deep);border-radius:44px;overflow:hidden;border:1.5px solid var(--lab-border);position:relative;display:flex;flex-direction:column;box-shadow:0 0 60px rgba(59,130,246,.12),0 0 120px rgba(168,85,247,.06);}
+.screen{display:none;flex-direction:column;flex:1;overflow:hidden;position:absolute;inset:0;background:var(--lab-deep);}
+.screen.on{display:flex;}
+.body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.body::-webkit-scrollbar{display:none;}
+.sb{height:44px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:var(--text-mid);flex-shrink:0;font-family:'Space Mono',monospace;}
+.nb{height:60px;border-top:1px solid var(--lab-border);display:flex;align-items:center;justify-content:space-around;padding:0 8px;flex-shrink:0;background:var(--lab-panel);}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;border-radius:10px;}
+.ni svg{width:22px;height:22px;stroke:var(--text-dim);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:.2s;}
+.ni span{font-size:10px;color:var(--text-dim);font-weight:600;letter-spacing:.3px;transition:.2s;}
+.ni.a svg{stroke:var(--neon-blue);}.ni.a span{color:var(--neon-blue);}
+.btn{width:100%;padding:16px;border-radius:var(--r);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;transition:.15s;letter-spacing:-.2px;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--neon-blue);color:#fff;}
+.btn-ghost{background:transparent;color:var(--text-mid);border:1.5px solid var(--lab-border);}
+.btn-teal{background:var(--neon-teal);color:#0a0e1a;}
+.card{background:var(--lab-panel);border-radius:var(--r);border:1px solid var(--lab-border);padding:14px;transition:.15s;cursor:pointer;}
+.card:active{transform:scale(.98);border-color:var(--neon-blue);}
+.pill{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;}
+.pill-blue{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+.pill-teal{background:rgba(6,214,160,.15);color:#5eead4;border:1px solid rgba(6,214,160,.3);}
+.pill-purple{background:rgba(168,85,247,.15);color:#d8b4fe;border:1px solid rgba(168,85,247,.3);}
+.pill-yellow{background:rgba(251,191,36,.15);color:#fde68a;border:1px solid rgba(251,191,36,.3);}
+.pill-dim{background:rgba(255,255,255,.06);color:var(--text-mid);border:1px solid var(--lab-border);}
+.lbl{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;font-family:'Space Mono',monospace;}
+.back{width:36px;height:36px;border-radius:10px;border:1px solid var(--lab-border);display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--lab-panel);flex-shrink:0;}
+.phone::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.012) 2px,rgba(255,255,255,.012) 4px);pointer-events:none;z-index:999;border-radius:44px;}
+.xp-bar-wrap{background:rgba(255,255,255,.08);border-radius:4px;height:6px;overflow:hidden;}
+.xp-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--neon-blue),var(--neon-purple));transition:width .6s ease;}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;background:var(--lab-border);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--neon-blue);cursor:pointer;border:3px solid var(--lab-deep);box-shadow:0 0 8px rgba(59,130,246,.5);}
+.toggle-btn{flex:1;padding:13px;border-radius:var(--rm);border:1.5px solid var(--lab-border);background:var(--lab-panel);color:var(--text-mid);font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.15s;}
+.toggle-btn.yes{border-color:var(--neon-teal);background:rgba(6,214,160,.1);color:#5eead4;}
+.toggle-btn.no{border-color:var(--text-dim);background:rgba(255,255,255,.04);color:var(--text-mid);}
+
+/* Einstein bubble */
+.einstein-wrap{display:flex;gap:12px;align-items:flex-end;margin-bottom:4px;animation:eSlide .4s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes eSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.einstein-bubble{background:var(--lab-panel);border:1.5px solid var(--neon-purple);border-radius:16px 16px 16px 4px;padding:12px 14px;flex:1;box-shadow:0 0 20px rgba(168,85,247,.15);}
+.einstein-bubble::before{content:'DR. EINSTEIN';font-size:9px;font-weight:700;color:var(--neon-purple);letter-spacing:1.5px;font-family:'Space Mono',monospace;display:block;margin-bottom:5px;}
+.einstein-bubble p{font-size:13px;color:var(--text-bright);line-height:1.55;}
+.einstein-bubble .fact-label{font-size:10px;color:var(--text-dim);margin-top:6px;font-family:'Space Mono',monospace;}
+.einstein-char{width:62px;height:62px;flex-shrink:0;}
+
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+#confetti-canvas{position:absolute;inset:0;pointer-events:none;z-index:100;border-radius:44px;}
+
+.cat-card{padding:14px 10px;border-radius:var(--r);border:2px solid var(--lab-border);background:var(--lab-panel);cursor:pointer;text-align:center;transition:.15s;}
+.cat-card:active{transform:scale(.96);}
+.cat-card.sel{border-color:var(--neon-blue);background:rgba(59,130,246,.1);}
+</style>
+</head>
+<body>
+<div class="phone" id="app">
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ══════════ S1 WELCOME ══════════ -->
+<div class="screen on" id="s1">
+  <div class="body" style="display:flex;flex-direction:column;min-height:100%;">
+    <div style="padding:48px 28px 0;flex:1;display:flex;flex-direction:column;">
+      <!-- Animated beaker -->
+      <div style="display:flex;justify-content:center;margin-bottom:28px;">
+        <svg width="90" height="100" viewBox="0 0 90 100" style="overflow:visible;">
+          <path d="M28 20 L20 80 Q20 88 28 88 L62 88 Q70 88 70 80 L62 20 Z" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round"/>
+          <rect x="28" y="10" width="34" height="14" rx="3" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+          <clipPath id="bc"><path d="M28 20 L20 80 Q20 88 28 88 L62 88 Q70 88 70 80 L62 20 Z"/></clipPath>
+          <rect x="18" y="56" width="56" height="34" fill="rgba(6,214,160,.25)" clip-path="url(#bc)"><animate attributeName="y" values="56;52;56" dur="3s" repeatCount="indefinite"/></rect>
+          <circle cx="35" cy="72" r="2.5" fill="rgba(6,214,160,.6)"><animate attributeName="cy" values="75;55" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/></circle>
+          <circle cx="50" cy="78" r="1.8" fill="rgba(59,130,246,.7)"><animate attributeName="cy" values="80;58" dur="1.7s" repeatCount="indefinite" begin="0.6s"/><animate attributeName="opacity" values="0;1;0" dur="1.7s" repeatCount="indefinite" begin="0.6s"/></circle>
+          <circle cx="42" cy="68" r="1.4" fill="rgba(168,85,247,.6)"><animate attributeName="cy" values="72;52" dur="2.8s" repeatCount="indefinite" begin="1.1s"/><animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite" begin="1.1s"/></circle>
+          <text x="68" y="30" font-size="14" fill="#fbbf24">✦</text>
+          <text x="10" y="50" font-size="10" fill="#a855f7">✦</text>
+        </svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="padding:4px 10px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);border-radius:20px;font-size:11px;font-weight:700;color:#93c5fd;font-family:'Space Mono',monospace;letter-spacing:.5px;">HUMAN LAB</div>
+        <div style="padding:4px 10px;background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.25);border-radius:20px;font-size:10px;font-weight:700;color:#5eead4;font-family:'Space Mono',monospace;">BETA v0.1</div>
+      </div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:var(--text-bright);line-height:1.05;margin-bottom:10px;">Stop guessing.<br>Start <span style="color:var(--neon-teal);">testing.</span></h1>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.6;margin-bottom:28px;">Run short experiments on yourself. Discover what <em style="color:var(--text-bright);">actually</em> works for your sleep, stress, energy, and mood.</p>
+      <div style="display:flex;gap:8px;margin-bottom:36px;">
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🧪</div>
+          <p style="font-size:11px;font-weight:700;color:var(--text-bright);">7–45 day studies</p>
+        </div>
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🤖</div>
+          <p style="font-size:11px;font-weight:700;color:var(--text-bright);">AI scientist</p>
+        </div>
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">📊</div>
+          <p style="font-size:11px;font-weight:700;color:var(--text-bright);">Real data</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:0 24px 44px;">
+      <button class="btn btn-primary" onclick="go('s2')" style="margin-bottom:10px;font-size:16px;">Enter the Lab →</button>
+      <button class="btn btn-ghost" onclick="go('s5')" style="font-size:14px;">Already have a study running</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S2 PICK CATEGORY ══════════ -->
+<div class="screen" id="s2">
+  <div class="sb"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body" style="padding:0 20px 28px;">
+    <div style="margin:4px 0 18px;">
+      <p class="lbl">Step 1 of 2 — Research focus</p>
+      <h2 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text-bright);margin-bottom:4px;">What are we testing?</h2>
+      <p style="font-size:13px;color:var(--text-mid);">Pick the area of your life you most want to understand.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+      <div class="cat-card sel" id="c-stress" onclick="selCat('stress',this)"><div style="font-size:26px;margin-bottom:5px;">😌</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Stress</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">12 studies</p></div>
+      <div class="cat-card" id="c-sleep" onclick="selCat('sleep',this)"><div style="font-size:26px;margin-bottom:5px;">😴</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Sleep</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">15 studies</p></div>
+      <div class="cat-card" id="c-energy" onclick="selCat('energy',this)"><div style="font-size:26px;margin-bottom:5px;">⚡</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Energy</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-mood" onclick="selCat('mood',this)"><div style="font-size:26px;margin-bottom:5px;">😊</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Mood</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">11 studies</p></div>
+      <div class="cat-card" id="c-focus" onclick="selCat('focus',this)"><div style="font-size:26px;margin-bottom:5px;">🧠</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Focus</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">9 studies</p></div>
+      <div class="cat-card" id="c-fitness" onclick="selCat('fitness',this)"><div style="font-size:26px;margin-bottom:5px;">🏋️</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Fitness</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">12 studies</p></div>
+      <div class="cat-card" id="c-nutrition" onclick="selCat('nutrition',this)"><div style="font-size:26px;margin-bottom:5px;">🥗</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Nutrition</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-weight" onclick="selCat('weight',this)"><div style="font-size:26px;margin-bottom:5px;">⚖️</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Weight</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-relationships" onclick="selCat('relationships',this)"><div style="font-size:26px;margin-bottom:5px;">❤️</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Relationships</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-confidence" onclick="selCat('confidence',this)"><div style="font-size:26px;margin-bottom:5px;">🔥</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Confidence</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-money" onclick="selCat('money',this)"><div style="font-size:26px;margin-bottom:5px;">💰</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Money</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-learning" onclick="selCat('learning',this)"><div style="font-size:26px;margin-bottom:5px;">📚</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Learning</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-health" onclick="selCat('health',this)"><div style="font-size:26px;margin-bottom:5px;">🌱</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">General Health</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+      <div class="cat-card" id="c-productivity" onclick="selCat('productivity',this)"><div style="font-size:26px;margin-bottom:5px;">🎯</div><p style="font-size:13px;font-weight:700;color:var(--text-bright);">Productivity</p><p style="font-size:10px;color:var(--text-mid);margin-top:2px;">10 studies</p></div>
+    </div>
+    <!-- Full-width curiosity card -->
+    <div class="cat-card" id="c-curiosity" onclick="selCat('curiosity',this)" style="display:flex;align-items:center;gap:14px;text-align:left;padding:16px;margin-bottom:16px;">
+      <div style="font-size:32px;">🚀</div>
+      <div><p style="font-size:14px;font-weight:700;color:var(--text-bright);">Curiosity Lab</p><p style="font-size:11px;color:var(--text-mid);margin-top:2px;">Weird, playful & social experiments</p></div>
+    </div>
+    <button class="btn btn-primary" onclick="go('s3')">See Experiments →</button>
+  </div>
+</div>
+
+<!-- ══════════ S3 EXPERIMENT LIST ══════════ -->
+<div class="screen" id="s3">
+  <div class="sb"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body" style="padding:0 20px 28px;">
+    <div style="display:flex;align-items:center;gap:10px;margin:4px 0 18px;">
+      <div class="back" onclick="go('s2')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--text-mid)" stroke-width="2" stroke-linecap="round"><path d="M11 3L5 9l6 6"/></svg></div>
+      <div>
+        <p class="lbl" style="margin-bottom:2px;">Step 2 of 2 — Choose study</p>
+        <h2 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text-bright);" id="cat-label">Stress Experiments</h2>
+      </div>
+    </div>
+
+    <!-- Einstein intro bubble -->
+    <div class="einstein-wrap" style="margin-bottom:18px;">
+      <svg class="einstein-char" viewBox="0 0 62 72">
+        <!-- Body / lab coat -->
+        <ellipse cx="31" cy="62" rx="18" ry="10" fill="#1a2235"/>
+        <rect x="17" y="50" width="28" height="20" rx="5" fill="#2a3550"/>
+        <!-- Coat lapels -->
+        <path d="M24 50 L31 58 L38 50" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+        <!-- Tie -->
+        <path d="M29 58 L31 65 L33 58 L31 56 Z" fill="rgba(244,63,94,.6)"/>
+        <!-- Head -->
+        <ellipse cx="31" cy="28" rx="16" ry="18" fill="#f5deb3"/>
+        <!-- Wild Einstein hair — big poofy sides and top -->
+        <path d="M14 22 Q6 10 12 8 Q8 4 16 10 Q12 2 20 8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M16 16 Q8 6 15 5 Q10 0 18 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M22 10 Q18 0 24 4 Q21 -2 28 3" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M31 8 Q29 0 31 3 Q30 -1 33 2" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M37 10 Q42 0 37 4 Q40 -2 34 3" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M44 16 Q52 6 46 5 Q51 0 43 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M47 22 Q56 10 49 8 Q53 4 45 10" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Ears -->
+        <ellipse cx="15" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+        <ellipse cx="47" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+        <!-- Eyes with round glasses -->
+        <circle cx="24" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+        <circle cx="38" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+        <line x1="30" y1="26" x2="32" y2="26" stroke="#2d3748" stroke-width="1.8"/>
+        <!-- glasses bridge extended to ears -->
+        <line x1="18" y1="26" x2="15" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+        <line x1="44" y1="26" x2="47" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+        <!-- Eye pupils -->
+        <circle cx="24" cy="26" r="3.2" fill="white"/>
+        <circle cx="38" cy="26" r="3.2" fill="white"/>
+        <circle cx="25" cy="25" r="1.6" fill="#1a202c"/>
+        <circle cx="39" cy="25" r="1.6" fill="#1a202c"/>
+        <!-- Eyebrows — bushy! -->
+        <path d="M18 19 Q24 17 30 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M32 19 Q38 17 44 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Big friendly mustache -->
+        <path d="M20 35 Q25 38 31 35 Q37 38 42 35" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M22 35 Q27 40 31 37 Q35 40 40 35" fill="white" opacity=".9"/>
+        <!-- Smile under mustache -->
+        <path d="M25 40 Q31 45 37 40" fill="none" stroke="#92400e" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <div class="einstein-bubble">
+        <p id="einstein-intro">"Remarkable selection, ja! Stress studies produce some of ze fastest measurable results — your nervous system responds within just 3–7 days of consistent intervention!"</p>
+        <p class="fact-label">⚗️ Dr. Einstein's recommendation</p>
+      </div>
+    </div>
+
+    <p class="lbl">🔍 Quick Studies (7–14 days)</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;" id="exp-list">
+      <div class="card" onclick="selectExp('brain-dump')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">📔</span><div><p style="font-size:14px;font-weight:700;color:var(--text-bright);">Brain Dump Journal</p><p style="font-size:12px;color:var(--text-mid);margin-top:1px;">3 pages · morning · 14 days</p></div></div>
+          <span class="pill pill-teal">POPULAR</span>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="pill pill-blue">Stress ↓</span><span class="pill pill-purple">Clarity ↑</span></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--lab-border);"><span style="font-size:10px;color:var(--neon-yellow);">★★★★</span><span style="font-size:10px;color:var(--text-dim);">★</span><span style="font-size:11px;color:var(--text-dim);">1,203 scientists · avg -11% stress</span></div>
+      </div>
+      <div class="card" onclick="selectExp('nature-walk')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">🌿</span><div><p style="font-size:14px;font-weight:700;color:var(--text-bright);">Daily Nature Walk</p><p style="font-size:12px;color:var(--text-mid);margin-top:1px;">20 min outdoors · 14 days</p></div></div>
+          <span class="pill pill-dim">14d</span>
+        </div>
+        <div style="display:flex;gap:6px;"><span class="pill pill-blue">Stress ↓</span><span class="pill pill-teal">Mood ↑</span></div>
+      </div>
+      <div class="card" onclick="selectExp('breathing')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">🫁</span><div><p style="font-size:14px;font-weight:700;color:var(--text-bright);">5-Min Breathing Study</p><p style="font-size:12px;color:var(--text-mid);margin-top:1px;">Box breathing · 7 days</p></div></div>
+          <span class="pill pill-teal">FAST</span>
+        </div>
+        <div style="display:flex;gap:6px;"><span class="pill pill-blue">Calm ↑</span></div>
+      </div>
+    </div>
+
+    <p class="lbl">🔬 Deeper Studies (21+ days)</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+      <div class="card" onclick="selectExp('no-news')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">📵</span><div><p style="font-size:14px;font-weight:700;color:var(--text-bright);">No News Study</p><p style="font-size:12px;color:var(--text-mid);margin-top:1px;">Media detox · 14 days</p></div></div>
+          <span class="pill pill-dim">14d</span>
+        </div>
+        <div style="display:flex;gap:6px;"><span class="pill pill-blue">Anxiety ↓</span><span class="pill pill-purple">Focus ↑</span></div>
+      </div>
+      <div class="card" style="opacity:.55;" onclick="alert('This is a Pro study — coming soon!')">
+        <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:28px;">🔒</span><div><p style="font-size:14px;font-weight:700;color:var(--text-mid);">Nervous System Reset</p><p style="font-size:12px;color:var(--text-dim);">30-day clinical trial</p></div><span class="pill pill-yellow" style="margin-left:auto;">PRO</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S4 EXPERIMENT DETAIL ══════════ -->
+<div class="screen" id="s4">
+  <div class="sb"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body">
+    <div style="background:linear-gradient(160deg,#0f1f3d 0%,#1a1035 100%);padding:20px 20px 28px;border-bottom:1px solid var(--lab-border);">
+      <div class="back" onclick="go('s3')" style="margin-bottom:16px;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--text-mid)" stroke-width="2" stroke-linecap="round"><path d="M11 3L5 9l6 6"/></svg></div>
+      <div style="font-size:52px;margin-bottom:12px;" id="exp-emoji">📔</div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;" id="exp-pills"><span class="pill pill-teal">Observation Study</span><span class="pill pill-dim">14 Days</span></div>
+      <h2 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text-bright);margin-bottom:10px;" id="exp-name">Brain Dump Journal</h2>
+      <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:var(--rm);padding:12px 14px;">
+        <p style="font-size:11px;font-weight:700;color:var(--neon-purple);letter-spacing:1px;margin-bottom:4px;font-family:'Space Mono',monospace;">HYPOTHESIS</p>
+        <p style="font-size:13px;color:var(--text-bright);line-height:1.55;font-style:italic;" id="exp-hypothesis">"Writing 3 pages of unfiltered thoughts each morning will reduce cognitive load and lower stress within 14 days."</p>
+      </div>
+    </div>
+
+    <!-- Einstein fact -->
+    <div style="padding:16px 20px 4px;">
+      <div class="einstein-wrap" style="padding:0;margin-bottom:0;">
+        <svg class="einstein-char" viewBox="0 0 62 72">
+          <ellipse cx="31" cy="62" rx="18" ry="10" fill="#1a2235"/>
+          <rect x="17" y="50" width="28" height="20" rx="5" fill="#2a3550"/>
+          <path d="M24 50 L31 58 L38 50" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+          <path d="M29 58 L31 65 L33 58 L31 56 Z" fill="rgba(244,63,94,.6)"/>
+          <ellipse cx="31" cy="28" rx="16" ry="18" fill="#f5deb3"/>
+          <path d="M14 22 Q6 10 12 8 Q8 4 16 10 Q12 2 20 8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M16 16 Q8 6 15 5 Q10 0 18 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M22 10 Q18 0 24 4 Q21 -2 28 3" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M31 8 Q29 0 31 3 Q30 -1 33 2" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M37 10 Q42 0 37 4 Q40 -2 34 3" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M44 16 Q52 6 46 5 Q51 0 43 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M47 22 Q56 10 49 8 Q53 4 45 10" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="15" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+          <ellipse cx="47" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+          <circle cx="24" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+          <circle cx="38" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+          <line x1="30" y1="26" x2="32" y2="26" stroke="#2d3748" stroke-width="1.8"/>
+          <line x1="18" y1="26" x2="15" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+          <line x1="44" y1="26" x2="47" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+          <circle cx="24" cy="26" r="3.2" fill="white"/><circle cx="38" cy="26" r="3.2" fill="white"/>
+          <circle cx="25" cy="25" r="1.6" fill="#1a202c"/><circle cx="39" cy="25" r="1.6" fill="#1a202c"/>
+          <path d="M18 19 Q24 17 30 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M32 19 Q38 17 44 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M20 35 Q25 38 31 35 Q37 38 42 35" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M22 35 Q27 40 31 37 Q35 40 40 35" fill="white" opacity=".9"/>
+          <path d="M25 40 Q31 45 37 40" fill="none" stroke="#92400e" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <div class="einstein-bubble" style="border-radius:16px 16px 16px 4px;">
+          <p id="exp-einstein-fact">"Ze morning pages technique — zis reduces activity in ze default mode network, ze brain's very own overthinking machine! Julia Cameron discovered it in 1992. Ze science caught up only recently, ja!"</p>
+          <p class="fact-label">⚗️ Science fact</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:16px 20px;">
+      <div style="background:var(--lab-panel);border-radius:var(--rm);padding:14px;margin-bottom:14px;border:1px solid var(--lab-border);">
+        <p class="lbl" style="margin-bottom:6px;">Protocol</p>
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.65;" id="exp-protocol">Each morning, write 3 pages of completely unfiltered thoughts. No editing, no rereading — just dump it all out. Takes about 20 minutes. Do this before checking your phone.</p>
+      </div>
+      <p class="lbl" style="margin-bottom:10px;">What we measure daily</p>
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--rm);padding:12px;text-align:center;"><div style="font-size:20px;margin-bottom:4px;">😌</div><div style="font-size:11px;font-weight:700;color:var(--text-bright);">Stress</div></div>
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--rm);padding:12px;text-align:center;"><div style="font-size:20px;margin-bottom:4px;">🧠</div><div style="font-size:11px;font-weight:700;color:var(--text-bright);">Clarity</div></div>
+        <div style="flex:1;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--rm);padding:12px;text-align:center;"><div style="font-size:20px;margin-bottom:4px;">😊</div><div style="font-size:11px;font-weight:700;color:var(--text-bright);">Mood</div></div>
+      </div>
+      <p class="lbl" style="margin-bottom:10px;">Community data</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+        <div style="background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.2);border-radius:var(--rm);padding:14px;text-align:center;"><p style="font-size:28px;font-weight:800;color:var(--neon-teal);letter-spacing:-1px;font-family:'Space Mono',monospace;">-11%</p><p style="font-size:11px;font-weight:600;color:#5eead4;">avg stress drop</p></div>
+        <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:var(--rm);padding:14px;text-align:center;"><p style="font-size:28px;font-weight:800;color:var(--neon-purple);letter-spacing:-1px;font-family:'Space Mono',monospace;">78%</p><p style="font-size:11px;font-weight:600;color:#d8b4fe;">worth retesting</p></div>
+      </div>
+    </div>
+    <div style="padding:0 20px 32px;">
+      <button class="btn btn-teal" onclick="go('s5')" style="font-size:16px;">Accept Experiment ⚗️</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ S5 ACTIVE DASHBOARD ══════════ -->
+<div class="screen" id="s5">
+  <div class="sb"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body" style="padding:0 20px 20px;">
+    <div style="margin:4px 0 16px;">
+      <p class="lbl" style="color:var(--neon-teal);margin-bottom:4px;">▶ ACTIVE EXPERIMENT</p>
+      <h2 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text-bright);">Brain Dump Journal 📔</h2>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(168,85,247,.08));border:1px solid var(--lab-border);border-radius:18px;padding:20px;margin-bottom:14px;display:flex;gap:18px;align-items:center;">
+      <div style="position:relative;width:88px;height:88px;flex-shrink:0;">
+        <svg width="88" height="88" viewBox="0 0 88 88">
+          <circle cx="44" cy="44" r="36" fill="none" stroke="var(--lab-border)" stroke-width="7"/>
+          <circle cx="44" cy="44" r="36" fill="none" stroke="url(#pg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="113" transform="rotate(-90 44 44)"/>
+          <defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;"><span style="font-size:22px;font-weight:800;color:var(--text-bright);font-family:'Space Mono',monospace;">7</span><span style="font-size:10px;color:var(--text-dim);">of 14</span></div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:12px;color:var(--text-mid);margin-bottom:10px;">Day 7 · 50% complete · <span style="color:var(--neon-teal);">On track</span></p>
+        <p class="lbl" style="margin-bottom:5px;">Data confidence</p>
+        <div class="xp-bar-wrap" style="margin-bottom:4px;"><div class="xp-bar-fill" style="width:50%;"></div></div>
+        <p style="font-size:11px;color:var(--text-dim);">Moderate — 7 more days builds a strong signal</p>
+      </div>
+    </div>
+    <p class="lbl" style="margin-bottom:8px;">Early findings</p>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--lab-panel);border-radius:var(--rm);padding:10px 14px;border:1px solid var(--lab-border);">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">😌</span><span style="font-size:13px;font-weight:600;color:var(--text-bright);">Stress</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:60px;height:4px;background:var(--lab-border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:40%;background:var(--neon-teal);border-radius:2px;"></div></div><span style="font-size:13px;font-weight:800;color:var(--neon-teal);font-family:'Space Mono',monospace;">-8%</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--lab-panel);border-radius:var(--rm);padding:10px 14px;border:1px solid var(--lab-border);">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🧠</span><span style="font-size:13px;font-weight:600;color:var(--text-bright);">Clarity</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:60px;height:4px;background:var(--lab-border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:55%;background:var(--neon-purple);border-radius:2px;"></div></div><span style="font-size:13px;font-weight:800;color:var(--neon-purple);font-family:'Space Mono',monospace;">+6%</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--lab-panel);border-radius:var(--rm);padding:10px 14px;border:1px solid var(--lab-border);">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">😊</span><span style="font-size:13px;font-weight:600;color:var(--text-bright);">Mood</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:60px;height:4px;background:var(--lab-border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:30%;background:var(--neon-blue);border-radius:2px;"></div></div><span style="font-size:13px;font-weight:800;color:var(--neon-blue);font-family:'Space Mono',monospace;">+3%</span></div>
+      </div>
+    </div>
+    <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);border-radius:var(--rm);padding:11px 14px;display:flex;gap:10px;align-items:center;margin-bottom:14px;">
+      <span style="font-size:18px;">⚠️</span>
+      <div><p style="font-size:12px;font-weight:700;color:var(--neon-yellow);">Data point missed — Day 5</p><p style="font-size:11px;color:var(--text-mid);margin-top:1px;">No penalty. Your study continues. Missing days reduce data confidence only.</p></div>
+    </div>
+    <p class="lbl" style="margin-bottom:8px;">7-day trend</p>
+    <div style="background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--r);padding:14px;margin-bottom:14px;">
+      <div style="display:flex;align-items:flex-end;gap:6px;height:64px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:rgba(59,130,246,.45);height:42%;"></div><span style="font-size:9px;color:var(--text-dim);font-family:'Space Mono',monospace;">D1</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:rgba(59,130,246,.55);height:50%;"></div><span style="font-size:9px;color:var(--text-dim);font-family:'Space Mono',monospace;">D2</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:rgba(59,130,246,.65);height:57%;"></div><span style="font-size:9px;color:var(--text-dim);font-family:'Space Mono',monospace;">D3</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:rgba(59,130,246,.72);height:62%;"></div><span style="font-size:9px;color:var(--text-dim);font-family:'Space Mono',monospace;">D4</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:var(--lab-border);height:18%;"></div><span style="font-size:9px;color:var(--neon-red);font-family:'Space Mono',monospace;">D5</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:rgba(59,130,246,.82);height:70%;"></div><span style="font-size:9px;color:var(--text-dim);font-family:'Space Mono',monospace;">D6</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;"><div style="width:100%;border-radius:3px 3px 0 0;background:var(--neon-blue);height:76%;"></div><span style="font-size:9px;color:var(--neon-blue);font-family:'Space Mono',monospace;">D7</span></div>
+      </div>
+      <p style="font-size:10px;color:var(--text-dim);margin-top:8px;text-align:center;font-family:'Space Mono',monospace;">Stress reduction trend · Red = missed data point</p>
+    </div>
+    <button class="btn btn-primary" onclick="go('s6')">Log Today's Data →</button>
+  </div>
+  <div class="nb">
+    <button class="ni" onclick="go('s3')"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg><span>Lab</span></button>
+    <button class="ni a" onclick="go('s5')"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Active</span></button>
+    <button class="ni" onclick="go('s7')"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>Results</span></button>
+  </div>
+</div>
+
+<!-- ══════════ S6 DAILY CHECK-IN ══════════ -->
+<div class="screen" id="s6">
+  <div class="sb"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body" style="padding:0 20px 20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin:4px 0 18px;">
+      <div class="back" onclick="go('s5')"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--text-mid)" stroke-width="2" stroke-linecap="round"><path d="M11 3L5 9l6 6"/></svg></div>
+      <div><p style="font-size:11px;color:var(--text-dim);font-family:'Space Mono',monospace;">Brain Dump Journal · Day 8</p><h2 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text-bright);">Daily Observation</h2></div>
+    </div>
+    <div style="background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.2);border-radius:var(--rm);padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+      <span style="font-size:18px;">⚡</span>
+      <p style="font-size:12px;font-weight:700;color:var(--neon-teal);">Under 30 seconds · Just slide and submit</p>
+    </div>
+    <div style="background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--r);padding:18px;margin-bottom:14px;">
+      <div style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><label style="font-size:13px;font-weight:700;color:var(--text-bright);">😌 Stress level</label><span style="font-size:15px;font-weight:800;color:var(--neon-blue);font-family:'Space Mono',monospace;" id="sv">4</span></div>
+        <input type="range" min="1" max="10" value="4" step="1" oninput="document.getElementById('sv').textContent=this.value">
+        <div style="display:flex;justify-content:space-between;margin-top:5px;"><span style="font-size:10px;color:var(--text-dim);">Very calm</span><span style="font-size:10px;color:var(--text-dim);">Very stressed</span></div>
+      </div>
+      <div style="margin-bottom:20px;padding-top:16px;border-top:1px solid var(--lab-border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><label style="font-size:13px;font-weight:700;color:var(--text-bright);">⚡ Energy</label><span style="font-size:15px;font-weight:800;color:var(--neon-teal);font-family:'Space Mono',monospace;" id="ev">7</span></div>
+        <input type="range" min="1" max="10" value="7" step="1" oninput="document.getElementById('ev').textContent=this.value">
+      </div>
+      <div style="padding-top:16px;border-top:1px solid var(--lab-border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><label style="font-size:13px;font-weight:700;color:var(--text-bright);">😊 Mood</label><span style="font-size:15px;font-weight:800;color:var(--neon-purple);font-family:'Space Mono',monospace;" id="mv">7</span></div>
+        <input type="range" min="1" max="10" value="7" step="1" oninput="document.getElementById('mv').textContent=this.value">
+      </div>
+    </div>
+    <p style="font-size:13px;font-weight:700;color:var(--text-bright);margin-bottom:10px;">Did you complete today's experiment?</p>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="toggle-btn yes" id="ty" onclick="setY(true)">✓ Yes</button>
+      <button class="toggle-btn no" id="tn" onclick="setY(false)">Not today</button>
+    </div>
+    <textarea style="width:100%;background:var(--lab-panel);border:1px solid var(--lab-border);border-radius:var(--rm);padding:12px 14px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-mid);resize:none;outline:none;" rows="3" placeholder="Optional: any notes or observations today…"></textarea>
+  </div>
+  <div style="padding:12px 20px 32px;border-top:1px solid var(--lab-border);">
+    <button class="btn btn-teal" id="submit-btn" onclick="submitObs()">Submit Observation →</button>
+  </div>
+</div>
+
+<!-- ══════════ S7 RESULTS ══════════ -->
+<div class="screen" id="s7">
+  <div class="sb" style="background:transparent;position:absolute;width:100%;z-index:10;"><span style="color:var(--neon-teal);">HUM_LAB</span><span>9:41</span></div>
+  <div class="body">
+    <div style="background:linear-gradient(160deg,#0a0e1a 0%,#0f1f3d 50%,#1a1035 100%);padding:60px 24px 36px;text-align:center;">
+      <div style="font-size:54px;margin-bottom:12px;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both;">🏆</div>
+      <p style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;font-family:'Space Mono',monospace;">Experiment Complete</p>
+      <h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--text-bright);margin-bottom:6px;">Brain Dump Journal</h2>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:20px;font-family:'Space Mono',monospace;">14 days · Jun 7 2026</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(6,214,160,.15);border:1px solid rgba(6,214,160,.35);border-radius:20px;padding:10px 20px;">
+        <span style="font-size:16px;">✅</span>
+        <span style="font-size:14px;font-weight:800;color:var(--neon-teal);">Hypothesis Supported</span>
+      </div>
+    </div>
+    <div style="padding:20px;">
+      <p class="lbl" style="margin-bottom:10px;">Final data</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div style="background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.2);border-radius:var(--rm);padding:16px;text-align:center;"><p style="font-size:32px;font-weight:800;color:var(--neon-teal);letter-spacing:-1px;font-family:'Space Mono',monospace;">-18%</p><p style="font-size:11px;font-weight:700;color:#5eead4;">Stress</p></div>
+        <div style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:var(--rm);padding:16px;text-align:center;"><p style="font-size:32px;font-weight:800;color:var(--neon-purple);letter-spacing:-1px;font-family:'Space Mono',monospace;">+14%</p><p style="font-size:11px;font-weight:700;color:#d8b4fe;">Clarity</p></div>
+      </div>
+      <div style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:var(--rm);padding:14px;text-align:center;margin-bottom:18px;"><p style="font-size:32px;font-weight:800;color:var(--neon-blue);letter-spacing:-1px;font-family:'Space Mono',monospace;">+9%</p><p style="font-size:11px;font-weight:700;color:#93c5fd;">Mood</p></div>
+      <div style="background:rgba(6,214,160,.07);border:1.5px solid rgba(6,214,160,.25);border-radius:var(--r);padding:16px;margin-bottom:14px;display:flex;gap:12px;align-items:center;">
+        <div style="width:44px;height:44px;background:var(--neon-teal);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">✅</div>
+        <div><p style="font-size:16px;font-weight:800;color:var(--neon-teal);">Supported</p><p style="font-size:12px;color:var(--text-mid);margin-top:2px;">Your data exceeded the community average by 18%. This works for you.</p></div>
+      </div>
+      <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);border-radius:var(--rm);padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:14px;">
+        <span style="font-size:32px;">🏅</span>
+        <div><p style="font-size:10px;font-weight:700;color:var(--neon-yellow);text-transform:uppercase;letter-spacing:1px;font-family:'Space Mono',monospace;">Discovery Badge</p><p style="font-size:15px;font-weight:800;color:var(--text-bright);">Unexpected Success</p><p style="font-size:11px;color:var(--text-dim);margin-top:2px;">You beat 83% of scientists who ran this study</p></div>
+      </div>
+      <!-- Einstein verdict -->
+      <div class="einstein-wrap" style="padding:0;margin-bottom:16px;">
+        <svg class="einstein-char" viewBox="0 0 62 72">
+          <ellipse cx="31" cy="62" rx="18" ry="10" fill="#1a2235"/>
+          <rect x="17" y="50" width="28" height="20" rx="5" fill="#2a3550"/>
+          <path d="M24 50 L31 58 L38 50" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+          <path d="M29 58 L31 65 L33 58 L31 56 Z" fill="rgba(244,63,94,.6)"/>
+          <ellipse cx="31" cy="28" rx="16" ry="18" fill="#f5deb3"/>
+          <path d="M14 22 Q6 10 12 8 Q8 4 16 10 Q12 2 20 8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M16 16 Q8 6 15 5 Q10 0 18 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M22 10 Q18 0 24 4 Q21 -2 28 3" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M31 8 Q29 0 31 3 Q30 -1 33 2" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M37 10 Q42 0 37 4 Q40 -2 34 3" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M44 16 Q52 6 46 5 Q51 0 43 6" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M47 22 Q56 10 49 8 Q53 4 45 10" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="15" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+          <ellipse cx="47" cy="29" rx="3.5" ry="5" fill="#e8c99a"/>
+          <circle cx="24" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+          <circle cx="38" cy="26" r="6" fill="none" stroke="#2d3748" stroke-width="1.8"/>
+          <line x1="30" y1="26" x2="32" y2="26" stroke="#2d3748" stroke-width="1.8"/>
+          <line x1="18" y1="26" x2="15" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+          <line x1="44" y1="26" x2="47" y2="27" stroke="#2d3748" stroke-width="1.5"/>
+          <circle cx="24" cy="26" r="3.2" fill="white"/><circle cx="38" cy="26" r="3.2" fill="white"/>
+          <circle cx="25" cy="25" r="1.6" fill="#1a202c"/><circle cx="39" cy="25" r="1.6" fill="#1a202c"/>
+          <path d="M18 19 Q24 17 30 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M32 19 Q38 17 44 19" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M20 35 Q25 38 31 35 Q37 38 42 35" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M22 35 Q27 40 31 37 Q35 40 40 35" fill="white" opacity=".9"/>
+          <path d="M25 40 Q31 45 37 40" fill="none" stroke="#92400e" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <div class="einstein-bubble">
+          <p>"Wunderbar! Your stress drop accelerated after Day 5 — zis is ze 'cognitive unlocking' effect I have observed in 78% of journaling subjects! Ze prefrontal cortex literally offloaded its burden onto ze paper. Magnificent data!"</p>
+          <p class="fact-label">⚗️ Dr. Einstein's verdict</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:0 20px 36px;">
+      <button class="btn btn-primary" onclick="go('s2')">Start Next Experiment →</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end phone -->
+
+<!-- Dev nav -->
+<div style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(10,14,26,.92);border:1px solid #2a3550;border-radius:12px;padding:8px 14px;display:flex;gap:6px;backdrop-filter:blur(12px);z-index:1000;">
+  <button onclick="go('s1')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Welcome</button>
+  <button onclick="go('s2')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Category</button>
+  <button onclick="go('s3')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Experiments</button>
+  <button onclick="go('s4')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Detail</button>
+  <button onclick="go('s5')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Active</button>
+  <button onclick="go('s6')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Check-in</button>
+  <button onclick="go('s7')" style="background:rgba(255,255,255,.08);border:none;color:#94a3b8;font-size:10px;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;">Results</button>
+</div>
+
+<script>
+let cur = 's1';
+function go(id) {
+  if (id === cur) return;
+  document.getElementById(cur).style.display = 'none';
+  document.getElementById(cur).classList.remove('on');
+  const next = document.getElementById(id);
+  if (!next) return;
+  next.style.display = 'flex';
+  next.classList.add('on');
+  if (next.querySelector('.body')) next.querySelector('.body').scrollTop = 0;
+  cur = id;
+  if (id === 's7') setTimeout(launchConfetti, 300);
+}
+
+const expData = {
+  'brain-dump':{ emoji:'📔', name:'Brain Dump Journal', pills:'<span class="pill pill-teal">Observation Study</span><span class="pill pill-dim">14 Days</span>', hypothesis:'"Writing 3 pages of unfiltered thoughts each morning will reduce cognitive load and lower stress within 14 days."', protocol:'Each morning, write 3 pages of completely unfiltered thoughts. No editing, no rereading — just dump it all out. Takes about 20 minutes. Do this before checking your phone.', fact:'"Ze morning pages technique — zis reduces activity in ze default mode network, ze brain\'s very own overthinking machine! Julia Cameron discovered it in 1992. Ze science caught up only recently, ja!"' },
+  'nature-walk':{ emoji:'🌿', name:'Daily Nature Walk', pills:'<span class="pill pill-teal">Observation Study</span><span class="pill pill-dim">14 Days</span>', hypothesis:'"Spending 20 minutes outdoors daily will reduce cortisol levels and improve mood scores within 14 days."', protocol:'Take a 20-minute walk in a natural setting every day. No music, no podcasts — just observe your surroundings. Morning yields the strongest data.', fact:'"A Stanford study found that 90 minutes of nature walking reduced activity in ze subgenual prefrontal cortex — ze brain region linked to rumination. City walking had absolutely no such effect! Extraordinary, ja!"' },
+  'breathing':{ emoji:'🫁', name:'5-Min Breathing Study', pills:'<span class="pill pill-teal">Observation Study</span><span class="pill pill-dim">7 Days</span>', hypothesis:'"5 minutes of box breathing twice daily will reduce perceived stress scores within 7 days."', protocol:'Breathe in for 4 counts, hold for 4, out for 4, hold for 4. Repeat for 5 minutes. Do once in ze morning and once before bed.', fact:'"Box breathing! Zis is ze very same technique used by U.S. Navy SEALs under extreme pressure. It activates ze parasympathetic nervous system directly — your body\'s built-in calm button!"' },
+  'no-news':{ emoji:'📵', name:'No News Study', pills:'<span class="pill pill-blue">Investigation Study</span><span class="pill pill-dim">14 Days</span>', hypothesis:'"Eliminating news consumption for 14 days will measurably reduce anxiety scores and improve focus ratings."', protocol:'No news — no TV news, no news apps, no headlines on social media. If major events matter to you, ask a friend to brief you once weekly. Track anxiety and focus daily.', fact:'"Ze average person consumes 27 hours of news per week! 68% report it causes stress. And yet we cannot stop! Zis experiment measures whether YOUR brain is affected — ze data may surprise you!"' }
+};
+
+const catLabels = {stress:'Stress Experiments',sleep:'Sleep Experiments',energy:'Energy Experiments',mood:'Mood Experiments',focus:'Focus Experiments',fitness:'Fitness Experiments',nutrition:'Nutrition Experiments',weight:'Weight Loss Experiments',relationships:'Relationship Experiments',confidence:'Confidence Experiments',money:'Money Experiments',learning:'Learning Experiments',health:'General Health Experiments',productivity:'Productivity Experiments',curiosity:'Curiosity Lab'};
+const catEinstein = {
+  stress:'"Remarkable selection, ja! Stress studies produce ze fastest measurable results — your nervous system responds within just 3–7 days of consistent intervention!"',
+  sleep:'"Sleep — ze foundation of EVERYTHING else! Studies here often cascade into energy, mood, AND focus improvements simultaneously. Most exciting territory!"',
+  energy:'"Energy experiments are fascinating because ze results are so immediately obvious. You will FEEL ze data before you even log it. Very satisfying science!"',
+  mood:'"Mood studies reveal how surprisingly controllable our emotional baseline truly is. Most people are shocked — shocked! — by how much simple interventions move ze needle."',
+  focus:'"Focus is ze superpower of ze 21st century! With attention spans shrinking globally, anyone who can sustain deep work gains a measurable advantage. Let us measure yours!"',
+  fitness:'"Physical experiments produce ze most visible data of all! Ze body does not lie — it shows you ze results in ze mirror AND in ze numbers. Very motivating science!"',
+  nutrition:'"You are quite literally what you eat, and now we can PROVE it! Nutrition experiments show fascinating individual variation — what works for others may not work for you."',
+  weight:'"Weight studies require patience, ja, but ze data patterns are unmistakable. We are not counting calories — we are discovering WHICH interventions actually move ze needle for YOUR biology."',
+  relationships:'"Ze most underresearched category in personal science! Human connection has measurable effects on cortisol, oxytocin, and longevity. You are pioneering important research here!"',
+  confidence:'"Confidence is not a fixed trait — it is a SKILL with measurable inputs and outputs. Ze data from these studies often surprises people. Very encouraging findings!"',
+  money:'"Behavioral economics meets personal science! Your spending patterns have predictable triggers. Ze data from these studies can literally change your financial trajectory. Extraordinary!"',
+  learning:'"Ze brain is remarkably plastic at any age — zis is now proven beyond doubt! Learning experiments show how small daily inputs compound into extraordinary long-term gains."',
+  health:'"General health is ze foundation of all other categories. Improve ze foundation and EVERYTHING else improves. Ze data here tends to be ze most broadly impactful. Excellent choice!"',
+  productivity:'"Productivity experiments fascinate me because ze results are so counterintuitive! Rest, focus, and simplicity outperform hustle in ze data nearly every single time."',
+  curiosity:'"Ze Curiosity Lab — my absolute favorite! Zese experiments do not just collect data, zey rewrite how you see ze world. Science should always be fun, ja!"'
+};
+
+function selCat(cat, el) {
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('cat-label').textContent = catLabels[cat] || cat;
+  document.getElementById('einstein-intro').textContent = catEinstein[cat] || catEinstein.stress;
+}
+
+function selectExp(id) {
+  const e = expData[id];
+  if (!e) return;
+  document.getElementById('exp-emoji').textContent = e.emoji;
+  document.getElementById('exp-name').textContent = e.name;
+  document.getElementById('exp-pills').innerHTML = e.pills;
+  document.getElementById('exp-hypothesis').textContent = e.hypothesis;
+  document.getElementById('exp-protocol').textContent = e.protocol;
+  document.getElementById('exp-einstein-fact').textContent = e.fact;
+  go('s4');
+}
+
+function setY(yes) {
+  document.getElementById('ty').className = yes ? 'toggle-btn yes' : 'toggle-btn';
+  document.getElementById('tn').className = yes ? 'toggle-btn no' : 'toggle-btn yes';
+}
+
+function submitObs() {
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = '✓ Data recorded!';
+  btn.style.background = '#06d6a0';
+  btn.style.color = '#0a0e1a';
+  setTimeout(() => { btn.textContent = 'Submit Observation →'; btn.style.background = ''; btn.style.color = ''; go('s5'); }, 1200);
+}
+
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 375; canvas.height = 820;
+  const pieces = [];
+  const colors = ['#3b82f6','#06d6a0','#a855f7','#fbbf24','#f43f5e'];
+  for (let i=0;i<70;i++) pieces.push({x:Math.random()*375,y:-10,w:Math.random()*8+4,h:Math.random()*12+6,color:colors[Math.floor(Math.random()*5)],rot:Math.random()*360,rs:(Math.random()-.5)*8,vx:(Math.random()-.5)*4,vy:Math.random()*4+2,op:1});
+  let f=0;
+  function draw(){ctx.clearRect(0,0,375,820);pieces.forEach(p=>{ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.globalAlpha=p.op;ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();p.x+=p.vx;p.y+=p.vy;p.rot+=p.rs;p.op-=.012;});f++;if(f<140)requestAnimationFrame(draw);else ctx.clearRect(0,0,375,820);}
+  draw();
+}
+</script>
+</body>
+</html>
