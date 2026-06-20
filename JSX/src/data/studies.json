@@ -1,0 +1,218 @@
+{
+  "S1": {
+    "title": "Counting blessings versus burdens: An experimental investigation of gratitude and subjective well-being in daily life",
+    "authors": "Emmons & McCullough, 2003",
+    "url": "https://doi.org/10.1037/0022-3514.84.2.377",
+    "claimStrength": "direct_trial"
+  },
+  "S2": {
+    "title": "Implementation intentions: Strong effects of simple plans",
+    "authors": "Gollwitzer, 1999",
+    "url": "https://doi.org/10.1037/0003-066X.54.7.493",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S3": {
+    "title": "How are habits formed: Modelling habit formation in the real world",
+    "authors": "Lally et al., 2010",
+    "url": "https://doi.org/10.1002/ejsp.674",
+    "claimStrength": "direct_trial"
+  },
+  "S4": {
+    "title": "Nature experience reduces rumination and subgenual prefrontal cortex activation",
+    "authors": "Bratman et al., 2015",
+    "url": "https://doi.org/10.1073/pnas.1510459112",
+    "claimStrength": "direct_trial"
+  },
+  "S5": {
+    "title": "Blood pressure-lowering effect of Shinrin-yoku: systematic review and meta-analysis",
+    "authors": "Ideno et al., 2017",
+    "url": "https://doi.org/10.1186/s12906-017-1912-z",
+    "claimStrength": "systematic_review"
+  },
+  "S6": {
+    "title": "Physical activity and mental health in children and adolescents: updated review",
+    "authors": "Biddle et al., 2019",
+    "url": "https://doi.org/10.1136/bjsports-2018-099634",
+    "claimStrength": "systematic_review"
+  },
+  "S7": {
+    "title": "Ultra-processed diets cause excess calorie intake and weight gain",
+    "authors": "Hall et al., 2019",
+    "url": "https://doi.org/10.1016/j.cmet.2019.05.008",
+    "claimStrength": "direct_trial"
+  },
+  "S8": {
+    "title": "Primary prevention of cardiovascular disease with a Mediterranean diet",
+    "authors": "Estruch et al., 2018",
+    "url": "https://doi.org/10.1056/NEJMoa1800389",
+    "claimStrength": "direct_trial"
+  },
+  "S9": {
+    "title": "Sleep duration and quality: impact on lifestyle behaviors and cardiometabolic health",
+    "authors": "St-Onge et al., 2016",
+    "url": "https://doi.org/10.1161/CIR.0000000000000444",
+    "claimStrength": "systematic_review"
+  },
+  "S10": {
+    "title": "Evening blue light-emitting eReaders negatively affect sleep",
+    "authors": "Chang et al., 2015",
+    "url": "https://doi.org/10.1073/pnas.1418490112",
+    "claimStrength": "direct_trial"
+  },
+  "S11": {
+    "title": "The effect of magnesium supplementation on insomnia in elderly subjects",
+    "authors": "Wienecke et al., 2016",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/23853635/",
+    "claimStrength": "direct_trial"
+  },
+  "S12": {
+    "title": "Pursuing happiness: architecture of sustainable change",
+    "authors": "Lyubomirsky, Sheldon & Schkade, 2005",
+    "url": "https://doi.org/10.1037/1089-2680.9.2.111",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S13": {
+    "title": "Altruism, happiness, and health: it's good to be good",
+    "authors": "Post, 2005",
+    "url": "https://doi.org/10.2190/D6XB-KW7J-8QWC-44KF",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S14": {
+    "title": "Effects of volunteering on the well-being of older adults",
+    "authors": "Morrow-Howell et al., 2003",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/12560414/",
+    "claimStrength": "direct_trial"
+  },
+  "S15": {
+    "title": "The experimental generation of interpersonal closeness",
+    "authors": "Aron et al., 1997",
+    "url": "https://doi.org/10.1177/0146167297234003",
+    "claimStrength": "direct_trial"
+  },
+  "S16": {
+    "title": "Have you thanked your spouse today? Felt and expressed gratitude among couples",
+    "authors": "Gordon et al., 2012",
+    "url": "https://doi.org/10.1177/0146167212445593",
+    "claimStrength": "direct_trial"
+  },
+  "S17": {
+    "title": "The benefit of power posing before a high-stakes social evaluation",
+    "authors": "Cuddy, Wilmuth & Carney, 2012",
+    "url": "https://dash.harvard.edu/handle/1/9547823",
+    "claimStrength": "direct_trial"
+  },
+  "S18": {
+    "title": "Maximizing exposure therapy: inhibitory learning approach",
+    "authors": "Craske et al., 2014",
+    "url": "https://doi.org/10.1016/j.brat.2014.04.006",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S19": {
+    "title": "Self-efficacy: Toward a unifying theory of behavioral change",
+    "authors": "Bandura, 1977",
+    "url": "https://doi.org/10.1037/0033-295X.84.2.191",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S20": {
+    "title": "The economic importance of financial literacy",
+    "authors": "Lusardi & Mitchell, 2014",
+    "url": "https://doi.org/10.1257/jel.52.1.5",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S21": {
+    "title": "Financial literacy, financial education, and downstream financial behaviors",
+    "authors": "Fernandes, Lynch & Netemeyer, 2014",
+    "url": "https://doi.org/10.1287/mnsc.2013.1849",
+    "claimStrength": "direct_trial"
+  },
+  "S22": {
+    "title": "Test-enhanced learning",
+    "authors": "Roediger & Karpicke, 2006",
+    "url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+    "claimStrength": "direct_trial"
+  },
+  "S23": {
+    "title": "Improving students' learning with effective learning techniques",
+    "authors": "Dunlosky et al., 2013",
+    "url": "https://doi.org/10.1177/1529100612453266",
+    "claimStrength": "systematic_review"
+  },
+  "S24": {
+    "title": "Give your ideas some legs: walking improves creative ideation",
+    "authors": "Oppezzo & Schwartz, 2014",
+    "url": "https://doi.org/10.1037/a0036577",
+    "claimStrength": "direct_trial"
+  },
+  "S25": {
+    "title": "Mood, creativity, and innovation: meta-analysis",
+    "authors": "Baas, De Dreu & Nijstad, 2008",
+    "url": "https://doi.org/10.1037/a0012815",
+    "claimStrength": "systematic_review"
+  },
+  "S26": {
+    "title": "Acute effects of breaking up prolonged sitting on fatigue and cognition",
+    "authors": "Wennberg et al., 2016",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/26852326/",
+    "claimStrength": "direct_trial"
+  },
+  "S27": {
+    "title": "Sedentary behaviour and health in adults: evidence review",
+    "authors": "Saunders et al., 2020",
+    "url": "https://doi.org/10.1136/bjsports-2020-102323",
+    "claimStrength": "systematic_review"
+  },
+  "S28": {
+    "title": "Office workers' sitting time and health outcomes",
+    "authors": "Hadgraft et al., 2016",
+    "url": "https://doi.org/10.1186/s12966-016-0399-9",
+    "claimStrength": "direct_trial"
+  },
+  "S29": {
+    "title": "High-intensity interval training and health outcomes",
+    "authors": "Milton et al., 2011",
+    "url": "https://doi.org/10.2165/11594540-000000000-00000",
+    "claimStrength": "systematic_review"
+  },
+  "S30": {
+    "title": "Preferred reporting items for systematic review protocols",
+    "authors": "Shamseer et al., 2015",
+    "url": "https://doi.org/10.1136/bmj.g7647",
+    "claimStrength": "adjacent_evidence"
+  },
+  "S31": {
+    "title": "Reducing food's environmental impacts through producers and consumers",
+    "authors": "Poore & Nemecek, 2018",
+    "url": "https://doi.org/10.1126/science.aaq0216",
+    "claimStrength": "direct_trial"
+  },
+  "S32": {
+    "title": "Options for keeping the food system within environmental limits",
+    "authors": "Springmann et al., 2018",
+    "url": "https://doi.org/10.1038/s41586-018-0594-0",
+    "claimStrength": "direct_trial"
+  },
+  "S33": {
+    "title": "Environmental sustainability and behavioral science meta-analysis",
+    "authors": "Osbaldiston & Schott, 2012",
+    "url": "https://doi.org/10.1177/0013916511402673",
+    "claimStrength": "systematic_review"
+  },
+  "S34": {
+    "title": "Eating attentively: systematic review and meta-analysis",
+    "authors": "Robinson et al., 2013",
+    "url": "https://doi.org/10.3945/ajcn.112.045245",
+    "claimStrength": "systematic_review"
+  },
+  "S35": {
+    "title": "Comparing Pomodoro breaks and self-regulated breaks",
+    "authors": "Biwer et al., 2023",
+    "url": "https://doi.org/10.1111/bjep.12593",
+    "claimStrength": "direct_trial"
+  },
+  "S36": {
+    "title": "Computer vision syndrome: review of ocular causes and treatments",
+    "authors": "Rosenfield, 2016",
+    "url": "https://doi.org/10.1111/opo.12257",
+    "claimStrength": "systematic_review"
+  }
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { experimentById } from '../utils/labHelpers';
 import { StatusBar, BackButton, DropdownPill } from '../components/shared';
 
@@ -9,7 +9,7 @@ const MOOD_OPTIONS = [
   { value: 'rough', label: 'Mood tag: Rough' },
 ];
 
-export default function CheckInScreen({ experimentId, onBack, onSubmit }) {
+export default function CheckInScreen({ experimentId, onBack, onSubmit, submitRef }) {
   const exp = experimentById[experimentId];
   const [stress, setStress] = useState(4);
   const [energy, setEnergy] = useState(7);
@@ -25,6 +25,14 @@ export default function CheckInScreen({ experimentId, onBack, onSubmit }) {
       setSubmitting(false);
     }, 1200);
   };
+
+  useEffect(() => {
+    if (!submitRef) return undefined;
+    submitRef.current = handleSubmit;
+    return () => {
+      submitRef.current = null;
+    };
+  });
 
   return (
     <>
@@ -115,21 +123,6 @@ export default function CheckInScreen({ experimentId, onBack, onSubmit }) {
           placeholder="Optional: any notes or observations today…"
         />
 
-      </div>
-      <div style={{ padding: '12px 20px 32px', borderTop: '1px solid var(--lab-border)' }}>
-        <button
-          type="button"
-          className="btn btn-teal"
-          onClick={handleSubmit}
-          disabled={submitting}
-          style={
-            submitting
-              ? { background: '#06d6a0', color: '#0a0e1a' }
-              : undefined
-          }
-        >
-          {submitting ? '✓ Data recorded!' : 'Submit Observation →'}
-        </button>
       </div>
     </>
   );

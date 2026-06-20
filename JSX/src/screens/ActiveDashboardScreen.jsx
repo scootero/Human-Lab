@@ -1,16 +1,154 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import SectionTourGuide from '../components/SectionTourGuide';
+import { StatusBar } from '../components/shared';
 import { experimentById, getExperimentEmoji } from '../utils/labHelpers';
-import { StatusBar, NavBar } from '../components/shared';
+import { hasVisitedPage, markPageVisited } from '../utils/visitFlags';
 
-export default function ActiveDashboardScreen({ experimentId, onLogData, onNavigate }) {
+const ACTIVE_PAGE_ID = 'active';
+
+const ACTIVE_TOUR_STEPS = [
+  {
+    sectionKey: null,
+    revealUpTo: -1,
+    message: 'Velcome to ze Activity page! I vill walk you through each section — tap Continue ven you are ready.',
+  },
+  {
+    sectionKey: 'header',
+    revealUpTo: 0,
+    message: 'Zis is your running experiment — always know vich study you are collecting data for.',
+  },
+  {
+    sectionKey: 'progress',
+    revealUpTo: 1,
+    message: 'Your progress ring tracks days completed and data confidence. Stay on track for a stronger signal!',
+  },
+  {
+    sectionKey: 'checkin',
+    revealUpTo: 2,
+    message: 'Log daily check-ins here — slide each metric worse or better, zen hit Save. Quick and painless, ja?',
+  },
+  {
+    sectionKey: 'missed',
+    revealUpTo: 3,
+    message: 'Missed a day? No penalty — it only lowers confidence. Ve keep it honest, not guilt-trippy.',
+  },
+  {
+    sectionKey: 'overall',
+    revealUpTo: 4,
+    message: 'Your overall levels roll up from saved check-ins — zis is ze big picture of how you are trending.',
+  },
+  {
+    sectionKey: 'trend',
+    revealUpTo: 5,
+    message: 'Ze 7-day chart shows your trend over time. Red bars mean a missed data point. You are all set — happy experimenting!',
+  },
+];
+
+const CHECK_IN_METRICS = [
+  { key: 'stress', emoji: '😌', label: 'Stress', color: 'var(--neon-teal)' },
+  { key: 'clarity', emoji: '🧠', label: 'Clarity', color: 'var(--neon-purple)' },
+  { key: 'mood', emoji: '😊', label: 'Mood', color: 'var(--neon-blue)' },
+];
+
+const INITIAL_OVERALL = {
+  stress: { value: '-8%', width: '40%' },
+  clarity: { value: '+6%', width: '55%' },
+  mood: { value: '+3%', width: '30%' },
+};
+
+function formatDelta(n) {
+  if (n > 0) return `+${n}`;
+  return String(n);
+}
+
+function formatPercent(n) {
+  if (n > 0) return `+${n}%`;
+  return `${n}%`;
+}
+
+function clampPercent(n) {
+  return Math.max(-20, Math.min(20, n));
+}
+
+export default function ActiveDashboardScreen({ experimentId, onTourActiveChange }) {
   const exp = experimentById[experimentId];
   const name = exp?.name || 'Your Experiment';
-  const emoji = exp ? getExperimentEmoji(exp.id) : '🧪';
+  const emoji = exp ? getExperimentEmoji(exp) : '🧪';
+
+  const scrollRef = useRef(null);
+  const sectionRefs = useRef({});
+  const [showTour, setShowTour] = useState(() => !hasVisitedPage(ACTIVE_PAGE_ID));
+  const [tourStep, setTourStep] = useState(0);
+
+  const [savedCheckIn, setSavedCheckIn] = useState({ stress: 0, clarity: 0, mood: 0 });
+  const [draftCheckIn, setDraftCheckIn] = useState({ stress: 0, clarity: 0, mood: 0 });
+  const [overallLevels, setOverallLevels] = useState(INITIAL_OVERALL);
+  const [saveState, setSaveState] = useState('idle');
+
+  const hasChanges = useMemo(
+    () => CHECK_IN_METRICS.some(({ key }) => draftCheckIn[key] !== savedCheckIn[key]),
+    [draftCheckIn, savedCheckIn]
+  );
+
+  const handleSliderChange = (key, value) => {
+    setDraftCheckIn((prev) => ({ ...prev, [key]: value }));
+    if (saveState === 'saved') setSaveState('idle');
+  };
+
+  const currentTourStep = ACTIVE_TOUR_STEPS[tourStep];
+  const revealedUpTo = currentTourStep?.revealUpTo ?? -1;
+
+  useEffect(() => {
+    onTourActiveChange?.(showTour);
+    return () => onTourActiveChange?.(false);
+  }, [showTour, onTourActiveChange]);
+
+  const sectionVisible = (index) => !showTour || revealedUpTo >= index;
+
+  const handleTourContinue = () => {
+    if (tourStep >= ACTIVE_TOUR_STEPS.length - 1) {
+      markPageVisited(ACTIVE_PAGE_ID);
+      setShowTour(false);
+      return;
+    }
+    setTourStep((prev) => prev + 1);
+  };
+
+  const handleSaveCheckIn = () => {
+    setSavedCheckIn({ ...draftCheckIn });
+    setOverallLevels((prev) => {
+      const next = { ...prev };
+      CHECK_IN_METRICS.forEach(({ key }) => {
+        const delta = draftCheckIn[key] - savedCheckIn[key];
+        if (delta === 0) return;
+        const current = parseInt(prev[key].value, 10) || 0;
+        const updated = clampPercent(current + delta);
+        next[key] = {
+          value: formatPercent(updated),
+          width: `${Math.min(100, Math.abs(updated) * 5)}%`,
+        };
+      });
+      return next;
+    });
+    setSaveState('saved');
+    setTimeout(() => setSaveState('idle'), 1800);
+  };
 
   return (
     <>
       <StatusBar />
-      <div className="body-scroll page-body" style={{ padding: '0 20px 20px' }}>
-        <div style={{ margin: '4px 0 16px' }}>
+      <div
+        ref={scrollRef}
+        className={`body-scroll page-body${showTour ? ' page-body--tour' : ''}`}
+        style={{ padding: '0 20px 20px' }}
+      >
+        <div
+          ref={(el) => {
+            sectionRefs.current.header = el;
+          }}
+          className={`tour-section${sectionVisible(0) ? ' tour-section--visible' : ''}`}
+          style={{ margin: '4px 0 16px' }}
+        >
           <p className="lbl" style={{ color: 'var(--neon-teal)', marginBottom: 4 }}>
             ▶ ACTIVE EXPERIMENT
           </p>
@@ -20,6 +158,10 @@ export default function ActiveDashboardScreen({ experimentId, onLogData, onNavig
         </div>
 
         <div
+          ref={(el) => {
+            sectionRefs.current.progress = el;
+          }}
+          className={`tour-section${sectionVisible(1) ? ' tour-section--visible' : ''}`}
           style={{
             background: 'linear-gradient(135deg,rgba(59,130,246,.1),rgba(168,85,247,.08))',
             border: '1px solid var(--lab-border)',
@@ -83,14 +225,40 @@ export default function ActiveDashboardScreen({ experimentId, onLogData, onNavig
           </div>
         </div>
 
-        <p className="lbl" style={{ marginBottom: 8 }}>
-          Early findings
-        </p>
-        <MetricRow emoji="😌" label="Stress" color="var(--neon-teal)" width="40%" value="-8%" />
-        <MetricRow emoji="🧠" label="Clarity" color="var(--neon-purple)" width="55%" value="+6%" />
-        <MetricRow emoji="😊" label="Mood" color="var(--neon-blue)" width="30%" value="+3%" />
+        <div
+          ref={(el) => {
+            sectionRefs.current.checkin = el;
+          }}
+          className={`check-in-panel tour-section${sectionVisible(2) ? ' tour-section--visible' : ''}`}
+        >
+          <p className="lbl check-in-title">Check-in</p>
+          {CHECK_IN_METRICS.map(({ key, emoji, label, color }) => (
+            <CheckInRow
+              key={key}
+              emoji={emoji}
+              label={label}
+              color={color}
+              value={draftCheckIn[key]}
+              onChange={(v) => handleSliderChange(key, v)}
+            />
+          ))}
+          <div className="check-in-footer">
+            <button
+              type="button"
+              className={`check-in-save-btn ${saveState === 'saved' ? 'saved' : ''}`}
+              disabled={!hasChanges || saveState === 'saved'}
+              onClick={handleSaveCheckIn}
+            >
+              {saveState === 'saved' ? '✓ Saved' : 'Save'}
+            </button>
+          </div>
+        </div>
 
         <div
+          ref={(el) => {
+            sectionRefs.current.missed = el;
+          }}
+          className={`tour-section${sectionVisible(3) ? ' tour-section--visible' : ''}`}
           style={{
             background: 'rgba(251,191,36,.08)',
             border: '1px solid rgba(251,191,36,.25)',
@@ -99,7 +267,7 @@ export default function ActiveDashboardScreen({ experimentId, onLogData, onNavig
             display: 'flex',
             gap: 10,
             alignItems: 'center',
-            margin: '14px 0',
+            margin: '0 0 14px',
           }}
         >
           <span style={{ fontSize: 18 }}>⚠️</span>
@@ -111,18 +279,95 @@ export default function ActiveDashboardScreen({ experimentId, onLogData, onNavig
           </div>
         </div>
 
-        <p className="lbl" style={{ marginBottom: 8 }}>
-          7-day trend
-        </p>
-        <TrendChart />
+        <div
+          ref={(el) => {
+            sectionRefs.current.overall = el;
+          }}
+          className={`tour-section${sectionVisible(4) ? ' tour-section--visible' : ''}`}
+        >
+          <p className="lbl" style={{ marginBottom: 8 }}>
+            Your current overall levels
+          </p>
+          {CHECK_IN_METRICS.map(({ key, emoji, label, color }) => (
+            <MetricRow
+              key={key}
+              emoji={emoji}
+              label={label}
+              color={color}
+              width={overallLevels[key].width}
+              value={overallLevels[key].value}
+            />
+          ))}
+        </div>
 
-        <button type="button" className="btn btn-primary" onClick={onLogData} style={{ marginTop: 14 }}>
-          Log Today&apos;s Data →
-        </button>
+        <div
+          ref={(el) => {
+            sectionRefs.current.trend = el;
+          }}
+          className={`tour-section${sectionVisible(5) ? ' tour-section--visible' : ''}`}
+        >
+          <p className="lbl" style={{ marginBottom: 8, marginTop: 8 }}>
+            7-day trend
+          </p>
+          <TrendChart />
+        </div>
 
+        {showTour && (
+          <SectionTourGuide
+            step={currentTourStep}
+            stepIndex={tourStep}
+            stepCount={ACTIVE_TOUR_STEPS.length}
+            sectionRef={
+              currentTourStep.sectionKey ? { current: sectionRefs.current[currentTourStep.sectionKey] } : null
+            }
+            scrollRootRef={scrollRef}
+            onContinue={handleTourContinue}
+          />
+        )}
       </div>
-      <NavBar active="active" onNavigate={onNavigate} />
     </>
+  );
+}
+
+function CheckInRow({ emoji, label, color, value, onChange }) {
+  const nudge = (delta) => onChange(Math.max(-5, Math.min(5, value + delta)));
+
+  return (
+    <div className="check-in-row">
+      <div className="check-in-row-label">
+        <span className="check-in-emoji">{emoji}</span>
+        <span>{label}</span>
+      </div>
+      <div className="check-in-row-control">
+        <div className="check-in-track-labels">
+          <span className="check-in-pole worse">worse</span>
+          <span className="check-in-pole better">better</span>
+        </div>
+        <div className="check-in-control-line">
+          <button type="button" className="check-in-step" disabled={value <= -5} onClick={() => nudge(-1)} aria-label={`${label} worse`}>
+            −
+          </button>
+          <div className="check-in-track" role="slider" aria-valuemin={-5} aria-valuemax={5} aria-valuenow={value}>
+            <div className="check-in-track-center" />
+            <div
+              className="check-in-track-fill"
+              style={{
+                left: value < 0 ? `${50 + (value / 5) * 50}%` : '50%',
+                width: `${(Math.abs(value) / 5) * 50}%`,
+                background: value < 0 ? 'var(--neon-red)' : 'var(--neon-teal)',
+              }}
+            />
+            <div className="check-in-track-dot" style={{ left: `${((value + 5) / 10) * 100}%`, background: color }} />
+          </div>
+          <button type="button" className="check-in-step" disabled={value >= 5} onClick={() => nudge(1)} aria-label={`${label} better`}>
+            +
+          </button>
+        </div>
+        <span className="check-in-value mono" style={{ color }}>
+          {formatDelta(value)}
+        </span>
+      </div>
+    </div>
   );
 }
 

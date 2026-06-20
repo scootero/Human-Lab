@@ -1,6 +1,6 @@
 import { StepDots } from '../components/shared';
 
-export default function WelcomeScreen({ onNext, onSkip }) {
+export default function WelcomeScreen() {
   return (
     <div className="body-scroll" style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <div style={{ padding: '48px 28px 0', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -22,15 +22,8 @@ export default function WelcomeScreen({ onNext, onSkip }) {
           <span className="pill pill-sm pill-dim">📊 Real data</span>
           <span className="pill pill-sm pill-dim">🤖 AI scientist</span>
         </div>
-      </div>
-      <div style={{ padding: '0 24px 44px' }}>
+
         <StepDots step={0} total={3} />
-        <button type="button" className="btn btn-primary" onClick={onNext} style={{ marginBottom: 10, fontSize: 16 }}>
-          Enter the Lab →
-        </button>
-        <button type="button" className="btn btn-ghost" onClick={onSkip} style={{ fontSize: 14 }}>
-          Already have a study running
-        </button>
       </div>
     </div>
   );

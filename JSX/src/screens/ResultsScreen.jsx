@@ -1,5 +1,5 @@
 import { experimentById, getExperimentEmoji } from '../utils/labHelpers';
-export default function ResultsScreen({ experimentId, onRestart }) {
+export default function ResultsScreen({ experimentId }) {
   const exp = experimentById[experimentId];
   const name = exp?.name || 'Your Experiment';
   const emoji = exp ? getExperimentEmoji(exp.id) : '🏆';
@@ -104,12 +104,6 @@ export default function ResultsScreen({ experimentId, onRestart }) {
             </div>
           </div>
 
-        </div>
-
-        <div style={{ padding: '0 20px 36px' }}>
-          <button type="button" className="btn btn-primary" onClick={onRestart}>
-            Start Next Experiment →
-          </button>
         </div>
       </div>
     </>

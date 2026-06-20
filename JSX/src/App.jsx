@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { ConfettiCanvas } from './components/Confetti';
 import CornerScientist, { getEinsteinMessage } from './components/CornerScientist';
+import { experimentById, getTierForCategory } from './utils/labHelpers';
 import OnboardingFlask from './components/OnboardingFlask';
-import { DevNav } from './components/shared';
+import { DevNav, NavBar } from './components/shared';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import ExperimentListScreen from './screens/ExperimentListScreen';
@@ -27,7 +28,9 @@ export default function App() {
   const [experimentId, setExperimentId] = useState(null);
   const [flaskLevel, setFlaskLevel] = useState(0);
   const [flaskPulse, setFlaskPulse] = useState(0);
+  const [activeTourRunning, setActiveTourRunning] = useState(false);
   const scrollRefs = useRef({});
+  const checkInSubmitRef = useRef(null);
 
   const go = useCallback((id) => {
     setScreen(id);
@@ -47,12 +50,13 @@ export default function App() {
     go('category');
   }, [bumpFlask, go]);
 
-  const handleSelectCategory = useCallback(
+  const handleCategoryChosen = useCallback(
     (id) => {
       setCategoryId(id);
       bumpFlask(2);
+      go('experiments');
     },
-    [bumpFlask]
+    [bumpFlask, go]
   );
 
   const handleOpenExperiment = useCallback(
@@ -80,19 +84,72 @@ export default function App() {
     [screen, categoryId, experimentId]
   );
 
-  const einsteinDock = useMemo(() => {
-    if (screen !== 'category') return { dockBottom: 172 };
+  const detailLocked = useMemo(() => {
+    if (screen !== 'detail' || !experimentId) return false;
+    const exp = experimentById[experimentId];
+    if (!exp) return false;
+    const tier = categoryId ? getTierForCategory(exp, categoryId) : exp.displayTier;
+    return tier === 3;
+  }, [screen, experimentId, categoryId]);
 
-    if (categoryId) {
-      return { dockTop: 196 };
+  const dockActions = useMemo(() => {
+    switch (screen) {
+      case 'welcome':
+        return {
+          primary: { label: 'Enter the Lab →', onClick: handleEnterLab },
+          secondary: { label: 'Already have a study running', onClick: () => go('active'), variant: 'ghost' },
+        };
+      case 'category':
+        return {
+          primary: { label: '← Back', onClick: () => go('welcome'), variant: 'ghost' },
+        };
+      case 'experiments':
+        return {
+          primary: { label: '← Back', onClick: () => go('category'), variant: 'ghost' },
+        };
+      case 'detail':
+        return detailLocked
+          ? {
+              primary: {
+                label: 'Lab Plus required to start',
+                onClick: () => {},
+                variant: 'ghost',
+                disabled: true,
+              },
+            }
+          : {
+              primary: { label: 'Accept Experiment ⚗️', onClick: handleAcceptExperiment, variant: 'teal' },
+            };
+      case 'active':
+        return {};
+      case 'checkin':
+        return {
+          primary: {
+            label: 'Submit Observation →',
+            onClick: () => checkInSubmitRef.current?.(),
+            variant: 'teal',
+          },
+        };
+      case 'results':
+        return {
+          primary: { label: 'Start Next Experiment →', onClick: () => go('category') },
+        };
+      default:
+        return {};
     }
+  }, [
+    screen,
+    detailLocked,
+    handleEnterLab,
+    handleAcceptExperiment,
+    go,
+  ]);
 
-    return { dockBottom: 300 };
-  }, [screen, categoryId]);
+  const dockDetailLabel = screen === 'detail' ? 'HYPOTHESIS' : undefined;
 
   return (
     <>
-      <div className="phone" id="app">
+      <div className={`phone${screen === 'active' ? ' phone--with-nav' : ''}`} id="app">
         <ConfettiCanvas active={screen === 'results'} />
         <OnboardingFlask
           screen={screen}
@@ -104,21 +161,20 @@ export default function App() {
           key={`${screen}-${einsteinMessage}`}
           screen={screen}
           message={einsteinMessage}
-          dockBottom={einsteinDock.dockBottom}
-          dockTop={einsteinDock.dockTop}
+          primaryAction={dockActions.primary}
+          secondaryAction={dockActions.secondary}
+          detailLabel={dockDetailLabel}
+          hidden={screen === 'active' && activeTourRunning}
         />
 
         <div className={`screen ${screen === 'welcome' ? 'on' : ''}`} id="welcome">
-          <WelcomeScreen onNext={handleEnterLab} onSkip={() => go('active')} />
+          <WelcomeScreen />
         </div>
 
         <div className={`screen ${screen === 'category' ? 'on' : ''}`} id="category">
           <CategoryScreen
             selectedCategory={categoryId}
-            onSelectCategory={handleSelectCategory}
-            onNext={() => go('experiments')}
-            onBack={() => go('welcome')}
-            onOpenDetail={handleOpenExperiment}
+            onCategoryChosen={handleCategoryChosen}
           />
         </div>
 
@@ -126,7 +182,6 @@ export default function App() {
           <ExperimentListScreen
             categoryId={categoryId}
             onOpenDetail={handleOpenExperiment}
-            onBack={() => go('category')}
           />
         </div>
 
@@ -134,34 +189,35 @@ export default function App() {
           {experimentId && (
             <ExperimentDetailScreen
               experimentId={experimentId}
+              categoryId={categoryId}
               onBack={() => go('experiments')}
-              onAccept={handleAcceptExperiment}
             />
           )}
         </div>
 
         <div className={`screen ${screen === 'active' ? 'on' : ''}`} id="active">
           <ActiveDashboardScreen
-            experimentId={experimentId || 'journaling'}
-            onLogData={() => go('checkin')}
-            onNavigate={handleNav}
+            experimentId={experimentId || 'three_good_things_lab'}
+            onTourActiveChange={setActiveTourRunning}
           />
         </div>
 
         <div className={`screen ${screen === 'checkin' ? 'on' : ''}`} id="checkin">
           <CheckInScreen
-            experimentId={experimentId || 'journaling'}
+            experimentId={experimentId || 'three_good_things_lab'}
             onBack={() => go('active')}
             onSubmit={() => go('active')}
+            submitRef={checkInSubmitRef}
           />
         </div>
 
         <div className={`screen ${screen === 'results' ? 'on' : ''}`} id="results">
-          <ResultsScreen
-            experimentId={experimentId || 'journaling'}
-            onRestart={() => go('category')}
-          />
+          <ResultsScreen experimentId={experimentId || 'three_good_things_lab'} />
         </div>
+
+        {screen === 'active' && (
+          <NavBar active="active" onNavigate={handleNav} className="nb--screen-bottom" />
+        )}
       </div>
 
       <DevNav screens={SCREENS} current={screen} onGo={go} />

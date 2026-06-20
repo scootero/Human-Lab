@@ -1,153 +1,177 @@
+import { useState } from 'react';
 import {
   experimentById,
   getExperimentEmoji,
-  buildHypothesis,
   buildProtocol,
   difficultyLabel,
   formatCost,
   formatTime,
-  studyDays,
+  formatDurationNotice,
+  getLinkedCategoryNames,
+  resolveScienceSources,
+  CLAIM_STRENGTH_LABELS,
 } from '../utils/labHelpers';
 import { StatusBar, BackButton } from '../components/shared';
 
-export default function ExperimentDetailScreen({ experimentId, onBack, onAccept }) {
+const METRIC_LABELS = {
+  stress: 'stress',
+  mood: 'mood',
+  energy: 'energy',
+  sleep: 'sleep',
+  focus: 'focus',
+  fitness: 'fitness',
+  confidence: 'confidence',
+  relationships: 'connection',
+  creativity: 'creativity',
+  learning: 'learning',
+  productivity: 'productivity',
+  nutrition: 'nutrition',
+  weight_loss: 'weight',
+  money: 'financial habits',
+  kindness: 'kindness',
+  planet: 'sustainability',
+  longevity: 'vitality',
+  entrepreneurship: 'momentum',
+  curiosity: 'curiosity',
+  supplement_curiosity: 'curiosity',
+};
+
+const FAKE_PARTICIPANTS = [
+  { name: 'Sam', effect: 12 },
+  { name: 'Jordan', effect: 8 },
+  { name: 'Riley', effect: 15 },
+  { name: 'Casey', effect: 6 },
+  { name: 'Taylor', effect: 10 },
+];
+
+function formatEffect(value) {
+  return value > 0 ? `+${value}%` : `${value}%`;
+}
+
+function ParticipantCell({ name, effect, isYou = false }) {
+  return (
+    <div className={`community-stats__cell${isYou ? ' community-stats__cell--you' : ''}`}>
+      <span className="community-stats__avatar" aria-hidden>
+        {isYou ? '★' : name[0]}
+      </span>
+      <span className="community-stats__name">{isYou ? 'You' : name}</span>
+      {!isYou && <span className="community-stats__effect">{formatEffect(effect)}</span>}
+    </div>
+  );
+}
+
+export default function ExperimentDetailScreen({ experimentId, categoryId, onBack }) {
+  const [sourcesOpen, setSourcesOpen] = useState(true);
   const exp = experimentById[experimentId];
   if (!exp) return null;
 
-  const days = studyDays(exp.timeMinutes, exp.difficulty);
-  const emoji = getExperimentEmoji(exp.id);
+  const emoji = getExperimentEmoji(exp);
+  const linkedNames = getLinkedCategoryNames(exp);
+  const sources = resolveScienceSources(exp.scienceRefs);
+  const claimLabel = CLAIM_STRENGTH_LABELS[exp.claimStrength] || 'Science-backed';
+  const metricLabel = METRIC_LABELS[exp.primaryMetric] || 'wellbeing';
+  const avgEffect = Math.round(
+    FAKE_PARTICIPANTS.reduce((sum, p) => sum + p.effect, 0) / FAKE_PARTICIPANTS.length
+  );
 
   return (
     <>
       <StatusBar />
-      <div className="body-scroll page-body">
-        <div
-          style={{
-            background: 'linear-gradient(160deg,#0f1f3d 0%,#1a1035 100%)',
-            padding: '20px 20px 28px',
-            borderBottom: '1px solid var(--lab-border)',
-          }}
-        >
+      <div className="body-scroll page-body experiment-detail-page">
+        <header className="experiment-detail-page__header">
           <BackButton onClick={onBack} />
-          <div style={{ fontSize: 52, marginBottom: 12, marginTop: 16 }}>{emoji}</div>
-          <div className="pill-row" style={{ marginBottom: 10 }}>
-            <span className="pill pill-sm pill-teal">Observation Study</span>
-            <span className="pill pill-sm pill-dim">{days} Days</span>
-            <span className="pill pill-sm pill-blue">{formatCost(exp.cost)}</span>
-            <span className="pill pill-sm pill-purple">{formatTime(exp.timeMinutes)}</span>
+          <div className="experiment-detail-page__title-row">
+            <span className="experiment-detail-page__emoji">{emoji}</span>
+            <div className="experiment-detail-page__title-block">
+              <h2 className="syne-title experiment-detail-page__title">{exp.name}</h2>
+              <div className="pill-row experiment-detail-page__meta">
+                <span className="pill pill-sm pill-teal">{claimLabel}</span>
+                <span className="pill pill-sm pill-dim">{formatCost(exp.cost)}</span>
+                <span className="pill pill-sm pill-purple">{formatTime(exp.timeMinutes)}</span>
+              </div>
+            </div>
           </div>
-          <h2 className="syne-title" style={{ fontSize: 24, marginBottom: 10 }}>
-            {exp.name}
-          </h2>
-          <div
-            style={{
-              background: 'rgba(168,85,247,.08)',
-              border: '1px solid rgba(168,85,247,.2)',
-              borderRadius: 'var(--rm)',
-              padding: '12px 14px',
-            }}
-          >
-            <p className="lbl" style={{ color: 'var(--neon-purple)', marginBottom: 4 }}>
-              HYPOTHESIS
-            </p>
-            <p style={{ fontSize: 13, color: 'var(--text-bright)', lineHeight: 1.55, fontStyle: 'italic' }}>
-              {buildHypothesis(exp)}
-            </p>
-          </div>
-        </div>
+        </header>
 
-        <div style={{ padding: '16px 20px' }}>
-          <div
-            style={{
-              background: 'var(--lab-panel)',
-              borderRadius: 'var(--rm)',
-              padding: 14,
-              marginBottom: 14,
-              border: '1px solid var(--lab-border)',
-            }}
-          >
-            <p className="lbl" style={{ marginBottom: 6 }}>
-              Protocol
-            </p>
-            <p style={{ fontSize: 13, color: 'var(--text-mid)', lineHeight: 1.65 }}>{buildProtocol(exp)}</p>
+        <div className="experiment-detail-page__body">
+          <div className="detail-card detail-card--blue">
+            <p className="lbl detail-card__label">Protocol</p>
+            <p className="detail-card__text">{buildProtocol(exp)}</p>
           </div>
 
-          <p className="lbl" style={{ marginBottom: 10 }}>
-            Tags
-          </p>
-          <div className="pill-row" style={{ marginBottom: 16 }}>
-            {exp.linkedCategoryNames.map((name) => (
+          <div className="detail-card detail-card--teal">
+            <p className="lbl detail-card__label">Duration</p>
+            <p className="detail-card__text">{formatDurationNotice(exp)}</p>
+          </div>
+
+          {sources.length > 0 && (
+            <div className="detail-card detail-card--purple detail-card--sources">
+              <button
+                type="button"
+                className="science-sources-toggle detail-card__sources-toggle"
+                onClick={() => setSourcesOpen((o) => !o)}
+                aria-expanded={sourcesOpen}
+              >
+                <span className="pill pill-sm pill-teal">Science-backed</span>
+                <span className="detail-card__sources-hint">
+                  {sources.length} source{sources.length > 1 ? 's' : ''} {sourcesOpen ? '▲' : '▼'}
+                </span>
+              </button>
+              {sourcesOpen && (
+                <ul className="science-sources-list">
+                  {sources.map((s) => (
+                    <li key={s.ref}>
+                      <a href={s.url} target="_blank" rel="noopener noreferrer">
+                        {s.authors} — {s.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+          {exp.claimStrength === 'curiosity_only' && (
+            <p className="experiment-detail-page__disclaimer">
+              Curiosity experiment — not medical advice. Track what you notice.
+            </p>
+          )}
+
+          <div className="pill-row experiment-detail-page__tags">
+            {linkedNames.slice(0, 4).map((name) => (
               <span key={name} className="pill pill-sm pill-blue">
                 {name}
               </span>
             ))}
             <span className="pill pill-sm pill-dim">{difficultyLabel(exp.difficulty)}</span>
-            <span className="pill pill-sm pill-teal">Fun {exp.funScore}/5</span>
-            <span className="pill pill-sm pill-purple">Science {exp.scienceScore}</span>
           </div>
 
-          <p className="lbl" style={{ marginBottom: 10 }}>
-            What we measure daily
-          </p>
-          <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-            {exp.linkedCategoryNames.slice(0, 3).map((name, i) => (
-              <div
-                key={name}
-                style={{
-                  flex: 1,
-                  background: 'var(--lab-panel)',
-                  border: '1px solid var(--lab-border)',
-                  borderRadius: 'var(--rm)',
-                  padding: 12,
-                  textAlign: 'center',
-                }}
-              >
-                <div style={{ fontSize: 20, marginBottom: 4 }}>
-                  {['😌', '🧠', '😊', '⚡', '💪'][i] || '📊'}
-                </div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-bright)' }}>{name}</div>
+          <div className="detail-card detail-card--amber community-stats">
+            <p className="lbl detail-card__label">Community lab</p>
+            <p className="community-stats__headline">6 people running this experiment</p>
+
+            <div className="community-stats__grid">
+              <ParticipantCell {...FAKE_PARTICIPANTS[0]} />
+              <ParticipantCell {...FAKE_PARTICIPANTS[1]} />
+              <ParticipantCell {...FAKE_PARTICIPANTS[2]} />
+              <ParticipantCell {...FAKE_PARTICIPANTS[3]} />
+              <ParticipantCell isYou />
+              <ParticipantCell {...FAKE_PARTICIPANTS[4]} />
+            </div>
+
+            <div className="community-stats__summary">
+              <div className="community-stats__stat">
+                <span className="community-stats__stat-value">{formatEffect(avgEffect)}</span>
+                <span className="community-stats__stat-label">avg effect on {metricLabel}</span>
               </div>
-            ))}
-          </div>
+              <div className="community-stats__stat">
+                <span className="community-stats__stat-value">80%</span>
+                <span className="community-stats__stat-label">report a positive change</span>
+              </div>
+            </div>
 
-          <p className="lbl" style={{ marginBottom: 10 }}>
-            Community data
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 20 }}>
-            <div
-              style={{
-                background: 'rgba(6,214,160,.08)',
-                border: '1px solid rgba(6,214,160,.2)',
-                borderRadius: 'var(--rm)',
-                padding: 14,
-                textAlign: 'center',
-              }}
-            >
-              <p className="mono" style={{ fontSize: 28, fontWeight: 800, color: 'var(--neon-teal)', letterSpacing: -1 }}>
-                {Math.round(exp.scienceScore * 0.12)}%
-              </p>
-              <p style={{ fontSize: 11, fontWeight: 600, color: '#5eead4' }}>avg improvement</p>
-            </div>
-            <div
-              style={{
-                background: 'rgba(168,85,247,.08)',
-                border: '1px solid rgba(168,85,247,.2)',
-                borderRadius: 'var(--rm)',
-                padding: 14,
-                textAlign: 'center',
-              }}
-            >
-              <p className="mono" style={{ fontSize: 28, fontWeight: 800, color: 'var(--neon-purple)', letterSpacing: -1 }}>
-                {Math.min(95, exp.scienceScore - 5)}%
-              </p>
-              <p style={{ fontSize: 11, fontWeight: 600, color: '#d8b4fe' }}>worth retesting</p>
-            </div>
+            <p className="community-stats__note">Preview data — real community stats coming soon</p>
           </div>
-        </div>
-        <div style={{ padding: '0 20px 32px' }}>
-          <button type="button" className="btn btn-teal" onClick={onAccept} style={{ fontSize: 16 }}>
-            Accept Experiment ⚗️
-          </button>
         </div>
       </div>
     </>

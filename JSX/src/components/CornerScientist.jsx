@@ -3,8 +3,9 @@ import {
   categories,
   CATEGORY_EINSTEIN,
   experimentById,
+  getExperimentsByTier,
   getExperimentsForCategory,
-  buildScienceFact,
+  buildHypothesis,
 } from '../utils/labHelpers';
 import MadScientistArt from './MadScientistArt';
 
@@ -34,16 +35,16 @@ export function getEinsteinMessage(screen, { categoryId, experimentId } = {}) {
     case 'experiments': {
       if (!categoryId) return CORNER_MESSAGES.experiments;
       const category = categories.find((c) => c.id === categoryId);
-      const count = getExperimentsForCategory(categoryId).length;
-      const plural = count !== 1 ? 's' : '';
+      const all = getExperimentsForCategory(categoryId);
+      const { tier1 } = getExperimentsByTier(categoryId);
       return category
-        ? `${category.name} — ${count} experiment${plural} ready. Tap a pill to see ze details!`
+        ? `${all.length} experiments for ${category.name} — ${tier1.length} best starters at ze top, many more below!`
         : CORNER_MESSAGES.experiments;
     }
     case 'detail': {
       const exp = experimentById[experimentId];
       if (!exp) return CORNER_MESSAGES.detail;
-      return stripQuotes(buildScienceFact(exp));
+      return stripQuotes(buildHypothesis(exp));
     }
     case 'active':
       return CORNER_MESSAGES.active;
@@ -59,7 +60,7 @@ export function getEinsteinMessage(screen, { categoryId, experimentId } = {}) {
   }
 }
 
-function useTypewriter(text, { startDelay = 1200, charDelay = 38, enabled = true } = {}) {
+function useTypewriter(text, { startDelay = 600, charDelay = 32, enabled = true } = {}) {
   const [displayed, setDisplayed] = useState('');
   const [done, setDone] = useState(false);
 
@@ -96,45 +97,95 @@ function useTypewriter(text, { startDelay = 1200, charDelay = 38, enabled = true
   return { displayed, done };
 }
 
-/** Fixed dock — same side and size on every screen; position varies by screen */
-const DOCK = { side: 'left', defaultBottom: 172 };
+function useScrollBlur(screen) {
+  const [blur, setBlur] = useState(0);
 
-export default function CornerScientist({ screen, message, dockBottom, dockTop }) {
+  useEffect(() => {
+    const el = document.querySelector('.screen.on .body-scroll');
+    if (!el) {
+      setBlur(0);
+      return undefined;
+    }
+
+    const onScroll = () => {
+      const amount = Math.min(14, el.scrollTop * 0.06);
+      setBlur(amount);
+    };
+
+    onScroll();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [screen]);
+
+  return blur;
+}
+
+export default function CornerScientist({
+  screen,
+  message,
+  primaryAction,
+  secondaryAction,
+  detailLabel,
+  hidden = false,
+}) {
   const text = message || getEinsteinMessage(screen) || '';
-  const { displayed, done } = useTypewriter(text, { enabled: Boolean(text) });
+  const { displayed, done } = useTypewriter(text, { enabled: Boolean(text) && !hidden });
+  const scrollBlur = useScrollBlur(screen);
 
-  if (!text) return null;
+  if (!text || hidden) return null;
 
-  const variant = DOCK.side === 'left' ? 'peek-left' : 'peek-right';
-  const useTop = dockTop != null;
-  const positionStyle = useTop
-    ? { top: dockTop, bottom: 'auto' }
-    : { bottom: dockBottom ?? DOCK.defaultBottom };
+  const showActions = done && (primaryAction || secondaryAction);
 
   return (
     <div
-      className={[
-        'corner-scientist',
-        'corner-scientist--enter',
-        `corner-scientist--${DOCK.side}`,
-        useTop ? 'corner-scientist--top' : 'corner-scientist--bottom',
-      ].join(' ')}
-      style={positionStyle}
-      aria-hidden
+      className="scientist-dock scientist-dock--enter"
+      style={{ '--dock-blur': `${scrollBlur}px` }}
+      role="region"
+      aria-label="Dr. Einstein"
     >
-      <div className={`corner-scientist__bubble corner-scientist__bubble--${DOCK.side}`}>
-        <p className="corner-scientist__message">
-          <span className="corner-scientist__message-ghost" aria-hidden="true">
-            {text}
-          </span>
-          <span className="corner-scientist__message-visible">
-            {displayed}
-            {!done && <span className="corner-scientist__cursor" aria-hidden />}
-          </span>
-        </p>
-      </div>
-      <div className={`corner-scientist__figure corner-scientist__figure--${DOCK.side}`}>
-        <MadScientistArt variant={variant} />
+      <div className="scientist-dock__backdrop" aria-hidden />
+      <div className="scientist-dock__inner">
+        <div className="scientist-dock__dialog">
+          <div className="scientist-dock__bubble">
+            <p className="scientist-dock__label">{detailLabel || 'DR. EINSTEIN'}</p>
+            <p className="scientist-dock__message">
+              <span className="scientist-dock__message-ghost" aria-hidden="true">
+                {text}
+              </span>
+              <span className="scientist-dock__message-visible">
+                {displayed}
+                {!done && <span className="scientist-dock__cursor" aria-hidden />}
+              </span>
+            </p>
+          </div>
+          {showActions && (
+            <div className="scientist-dock__actions">
+              {primaryAction && (
+                <button
+                  type="button"
+                  className={`btn scientist-dock__btn ${primaryAction.variant ? `btn-${primaryAction.variant}` : 'btn-primary'}`}
+                  onClick={primaryAction.onClick}
+                  disabled={primaryAction.disabled}
+                >
+                  {primaryAction.label}
+                </button>
+              )}
+              {secondaryAction && (
+                <button
+                  type="button"
+                  className={`btn scientist-dock__btn ${secondaryAction.variant ? `btn-${secondaryAction.variant}` : 'btn-ghost'}`}
+                  onClick={secondaryAction.onClick}
+                  disabled={secondaryAction.disabled}
+                >
+                  {secondaryAction.label}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+        <div className={`scientist-dock__figure ${!done ? 'scientist-dock__figure--wiggle' : ''}`}>
+          <MadScientistArt variant="peek-right" />
+        </div>
       </div>
     </div>
   );
