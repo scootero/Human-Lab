@@ -1,0 +1,4 @@
+node_modules/
+JSX/node_modules/
+JSX/dist/
+.DS_Store

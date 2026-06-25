@@ -1,0 +1,10 @@
+{
+  "name": "human-lab",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix JSX",
+    "dev": "npm run dev --prefix JSX",
+    "build": "npm run build --prefix JSX",
+    "preview": "npm run preview --prefix JSX"
+  }
+}
