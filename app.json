@@ -222,12 +222,21 @@
     }
   },
   "source": {
+<<<<<<< HEAD
   "mockupGithubRepo": "scootero/Human-Lab",
   "mockupBranch": "main",
   "mockupRootDirectory": "mockup",
   "vercelMockupProjectId": "prj_hF5X5kvGbfgPQlajR5qf1KZ7rjUt",
   "vercelMockupProjectName": "human-lab"
 }
+=======
+    "mockupGithubRepo": "scootero/Human-Lab",
+    "mockupBranch": "main",
+    "mockupRootDirectory": "mockup",
+    "vercelMockupProjectId": "prj_hF5X5kvGbfgPQlajR5qf1KZ7rjUt",
+    "vercelMockupProjectName": "human-lab"
+  },
+>>>>>>> 669307b (n8n WF1 docs and platform updates)
   "deployment": {
     "mockup": {
       "vercelProjectId": null,
