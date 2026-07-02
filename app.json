@@ -221,6 +221,13 @@
       "notes": "Pause for manual review if CPA is $8–$15 at day 10 with positive engagement but low conversions."
     }
   },
+  "source": {
+  "mockupGithubRepo": "scootero/Human-Lab",
+  "mockupBranch": "main",
+  "mockupRootDirectory": "mockup",
+  "vercelMockupProjectId": "prj_hF5X5kvGbfgPQlajR5qf1KZ7rjUt",
+  "vercelMockupProjectName": "human-lab"
+}
   "deployment": {
     "mockup": {
       "vercelProjectId": null,
