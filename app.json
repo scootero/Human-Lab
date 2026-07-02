@@ -1,7 +1,7 @@
 {
   "specVersion": "1.3.0",
   "appId": "human-lab",
-  "status": "draft",
+  "status": "ready",
   "identity": {
     "appName": "Human Lab",
     "tagline": "Stop guessing. Start testing.",
