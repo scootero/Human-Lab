@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ConfettiCanvas } from './components/Confetti';
 import CornerScientist, { getEinsteinMessage } from './components/CornerScientist';
 import { experimentById, getTierForCategory } from './utils/labHelpers';
 import OnboardingFlask from './components/OnboardingFlask';
-import { DevNav, NavBar } from './components/shared';
+import { NavBar } from './components/shared';
 import WelcomeScreen from './screens/WelcomeScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import ExperimentListScreen from './screens/ExperimentListScreen';
@@ -12,17 +12,17 @@ import ActiveDashboardScreen from './screens/ActiveDashboardScreen';
 import CheckInScreen from './screens/CheckInScreen';
 import ResultsScreen from './screens/ResultsScreen';
 
-const SCREENS = [
-  { id: 'welcome', label: 'Welcome' },
-  { id: 'category', label: 'Category' },
-  { id: 'experiments', label: 'Experiments' },
-  { id: 'detail', label: 'Detail' },
-  { id: 'active', label: 'Active' },
-  { id: 'checkin', label: 'Check-in' },
-  { id: 'results', label: 'Results' },
-];
+function detectEmbedded() {
+  try {
+    if (window.self !== window.top) return true;
+    return new URLSearchParams(window.location.search).get('embed') === '1';
+  } catch {
+    return true;
+  }
+}
 
 export default function App() {
+  const isEmbedded = useMemo(() => detectEmbedded(), []);
   const [screen, setScreen] = useState('welcome');
   const [categoryId, setCategoryId] = useState(null);
   const [experimentId, setExperimentId] = useState(null);
@@ -31,6 +31,16 @@ export default function App() {
   const [activeTourRunning, setActiveTourRunning] = useState(false);
   const scrollRefs = useRef({});
   const checkInSubmitRef = useRef(null);
+
+  useEffect(() => {
+    if (!isEmbedded) return;
+    document.documentElement.classList.add('embed-mode');
+    document.body.classList.add('embed-mode');
+    return () => {
+      document.documentElement.classList.remove('embed-mode');
+      document.body.classList.remove('embed-mode');
+    };
+  }, [isEmbedded]);
 
   const go = useCallback((id) => {
     setScreen(id);
@@ -219,8 +229,6 @@ export default function App() {
           <NavBar active="active" onNavigate={handleNav} className="nb--screen-bottom" />
         )}
       </div>
-
-      <DevNav screens={SCREENS} current={screen} onGo={go} />
     </>
   );
 }

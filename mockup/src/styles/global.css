@@ -33,6 +33,34 @@ body {
   overflow-x: hidden;
 }
 
+html.embed-mode {
+  overflow: hidden;
+  height: 100%;
+}
+
+body.embed-mode {
+  min-height: 0;
+  height: 820px;
+  width: 375px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  display: block;
+}
+
+body.embed-mode #root {
+  width: 375px;
+  height: 820px;
+  min-height: 0;
+  display: block;
+}
+
+body.embed-mode .phone {
+  margin: 0;
+  flex-shrink: 0;
+}
+
 #root {
   width: 100%;
   display: flex;

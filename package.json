@@ -2,9 +2,9 @@
   "name": "human-lab",
   "private": true,
   "scripts": {
-    "postinstall": "npm install --prefix JSX",
-    "dev": "npm run dev --prefix JSX",
-    "build": "npm run build --prefix JSX",
-    "preview": "npm run preview --prefix JSX"
+    "postinstall": "npm install --prefix mockup",
+    "dev": "npm run dev --prefix mockup",
+    "build": "npm run build --prefix mockup",
+    "preview": "npm run preview --prefix mockup"
   }
 }

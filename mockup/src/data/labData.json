@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "app": "Human Lab",
-  "notes": "Science-backed experiment catalog from human_lab_science_backed_experiment_canvas.md. displayTier: 1=featured, 2=more experiments, 3=Lab Plus locked.",
+  "notes": "Science-backed experiment catalog from docs/science-backed-experiment-canvas.md. displayTier: 1=featured, 2=more experiments, 3=Lab Plus locked.",
   "categories": [
     {
       "id": "stress",

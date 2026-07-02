@@ -1,0 +1,238 @@
+{
+  "specVersion": "1.3.0",
+  "appId": "human-lab",
+  "status": "draft",
+  "identity": {
+    "appName": "Human Lab",
+    "tagline": "Stop guessing. Start testing.",
+    "badgeText": "Coming soon to the App Store",
+    "description": "Human Lab helps you run short, science-backed experiments on yourself. Pick a category, follow a structured study, check in daily, and discover what actually works for your stress, sleep, energy, and habits.",
+    "category": "health-fitness",
+    "platform": "ios",
+    "tags": ["self-experimentation", "wellness", "habits", "quantified-self", "science-backed"]
+  },
+  "audience": {
+    "landingPhrase": "curious self-improvers who want evidence—not guesswork",
+    "primary": "Curious self-improvers and quantified-self enthusiasts who want evidence—not guesswork—about what changes actually improve their wellbeing.",
+    "secondary": "Wellness app users who have tried habit trackers or biohacking tools but abandoned them because results felt anecdotal or unsustainable.",
+    "painPoints": [
+      "Trying interventions without knowing whether they actually work for you",
+      "Abandoning multi-day experiments before completion because adherence is hard",
+      "Wellness advice that sounds convincing but lacks personal data or rigorous structure",
+      "No single place to run structured n-of-1 experiments with daily check-ins and clear results"
+    ],
+    "personas": [
+      {
+        "name": "Quantified Self Explorer",
+        "summary": "Tracks sleep, mood, and habits already. Wants a structured way to test one change at a time and see whether it moves the needle."
+      },
+      {
+        "name": "Skeptical Optimizer",
+        "summary": "Tried meditation apps, supplements, and morning routines. Needs a playful, low-friction lab to prove what is worth keeping."
+      }
+    ]
+  },
+  "commerce": {
+    "pricing": {
+      "model": "subscription",
+      "currency": "USD",
+      "amount": 6.99,
+      "period": "monthly",
+      "trialDays": 7
+    },
+    "cta": {
+      "primaryText": "Buy Now",
+      "secondaryText": "See how it works",
+      "buyNowText": "Buy Now on the App Store",
+      "waitlistText": "Keep Me Updated"
+    }
+  },
+  "branding": {
+    "theme": {
+      "mode": "dark",
+      "landingStyle": "midnight",
+      "primaryColor": "#3b82f6",
+      "accentColor": "#06d6a0",
+      "accentName": "emerald",
+      "fontFamily": "DM Sans, Syne, system-ui, sans-serif"
+    },
+    "style": {
+      "tone": "playful",
+      "styleNotes": "Mad-scientist lab aesthetic with neon accents. Encouraging and curious—not clinical or preachy. Celebrate experiments completed, not perfection."
+    }
+  },
+  "mockup": {
+    "type": "interactive",
+    "sourcePath": "mockup/",
+    "framework": "react-vite",
+    "entryPoint": "mockup/src/App.jsx",
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "deployCommand": "npx vercel deploy --prod",
+    "baseWidth": 375,
+    "baseHeight": 820,
+    "clipBottomPx": 0,
+    "previewUrl": null,
+    "notes": "Interactive prototype demonstrating welcome flow, category selection, experiment detail, active dashboard, daily check-in, and results screens."
+  },
+  "media": {
+    "icon": { "path": "media/icon.png", "alt": "Human Lab app icon" },
+    "logo": { "path": "media/logo.png", "alt": "Human Lab logo" },
+    "ogImage": {
+      "path": "media/og-image.png",
+      "alt": "Human Lab — Stop guessing. Start testing.",
+      "width": 1200,
+      "height": 630
+    },
+    "screenshots": [
+      {
+        "path": "media/screenshots/01-home.png",
+        "alt": "Welcome screen",
+        "title": "Stop guessing. Start testing.",
+        "description": "Choose a category and enter the lab."
+      },
+      {
+        "path": "media/screenshots/02-feature.png",
+        "alt": "Active experiment dashboard",
+        "title": "Run structured experiments",
+        "description": "Daily check-ins and progress tracking."
+      },
+      {
+        "path": "media/screenshots/03-results.png",
+        "alt": "Experiment results",
+        "title": "See what actually worked",
+        "description": "Review outcomes backed by your data."
+      }
+    ],
+    "demoVideo": { "path": "media/demo.mp4", "alt": "Human Lab product demo" }
+  },
+  "landingPage": {
+    "slug": "human-lab",
+    "sections": [
+      { "id": "hero", "enabled": true, "source": "file", "file": "copy/hero.md" },
+      { "id": "features", "enabled": true, "source": "file", "file": "copy/features.md" },
+      { "id": "screenshots", "enabled": true, "source": "media" },
+      {
+        "id": "socialProof",
+        "enabled": false,
+        "source": "inline",
+        "inline": {
+          "headline": "Built for people who want proof",
+          "body": "Add testimonials or beta feedback here when available."
+        }
+      },
+      {
+        "id": "pricing",
+        "enabled": true,
+        "source": "inline",
+        "inline": {
+          "headline": "Simple pricing",
+          "subheadline": "$6.99/month after a 7-day free trial. Cancel anytime."
+        }
+      },
+      { "id": "faq", "enabled": true, "source": "file", "file": "copy/faq.md" },
+      {
+        "id": "cta",
+        "enabled": true,
+        "source": "inline",
+        "inline": {
+          "headline": "Ready to run your first experiment?",
+          "subheadline": "Start testing what actually works—for you.",
+          "placeholder": "Enter your email"
+        }
+      },
+      {
+        "id": "footer",
+        "enabled": true,
+        "source": "inline",
+        "inline": {
+          "body": "© 2026 Human Lab. Privacy · Terms · Contact"
+        }
+      }
+    ],
+    "seo": {
+      "title": "Human Lab — Stop guessing. Start testing.",
+      "description": "Run short science-backed experiments on yourself. Discover what actually works for stress, sleep, energy, and habits.",
+      "keywords": ["self-experimentation", "habit tracker", "wellness app", "quantified self", "n-of-1 experiments"]
+    }
+  },
+  "ads": {
+    "campaignName": "human-lab-validation",
+    "objective": "conversions",
+    "platforms": ["facebook", "instagram"],
+    "headlines": [
+      "Stop guessing. Start testing.",
+      "Run science-backed experiments on yourself"
+    ],
+    "primaryTexts": [
+      "Discover what actually works for your stress, sleep, and habits."
+    ],
+    "descriptions": [
+      "Human Lab turns self-improvement into structured experiments."
+    ],
+    "callToAction": "SIGN_UP",
+    "utmTemplate": {
+      "source": "facebook",
+      "medium": "paid_social",
+      "campaign": "human-lab-validation"
+    }
+  },
+  "tracking": {
+    "webhookUrl": null,
+    "webhooks": {
+      "validationComplete": null,
+      "deployComplete": null,
+      "emailCaptured": null,
+      "buyNowClicked": null
+    },
+    "events": [
+      { "name": "page_view", "description": "Landing page viewed" },
+      { "name": "email_captured", "description": "User submitted email on landing page" },
+      { "name": "buy_now_clicked", "description": "User clicked Buy Now / purchase CTA" },
+      { "name": "mockup_interacted", "description": "User opened or interacted with live mockup preview" }
+    ]
+  },
+  "analytics": {
+    "projectId": "proj_human-lab",
+    "experimentId": "exp_human-lab_2026q2_001",
+    "experimentRunId": "run_human-lab_2026q2_001",
+    "landingVariantId": "v1",
+    "mockupVersionId": "v1",
+    "funnelName": "validation_funnel"
+  },
+  "experiment": {
+    "experimentName": "Human Lab — Q2 2026 Validation",
+    "hypothesis": "We believe curious self-improvers will submit email and express buy intent at a CPA below $8 because Human Lab offers structured, science-backed n-of-1 experiments instead of generic habit advice.",
+    "successCriteria": [
+      "Cost per email signup below $5",
+      "Buy Now click rate above 2.5%",
+      "At least 200 unique landing page visitors"
+    ],
+    "testBudget": {
+      "currency": "USD",
+      "amount": 500,
+      "durationDays": 14
+    },
+    "decisionRules": {
+      "winnerThreshold": "CPA below $8 AND buy-now rate above 2.5% after min sample size",
+      "killThreshold": "CPA above $20 after 50% of budget spent with fewer than 10 email signups",
+      "minSampleSize": 200,
+      "notes": "Pause for manual review if CPA is $8–$15 at day 10 with positive engagement but low conversions."
+    }
+  },
+  "deployment": {
+    "mockup": {
+      "vercelProjectId": null,
+      "url": null,
+      "lastDeployedAt": null
+    },
+    "landing": {
+      "vercelProjectId": null,
+      "url": null,
+      "deploymentUrl": null,
+      "lastDeployedAt": null
+    },
+    "githubRepoUrl": null
+  }
+}
