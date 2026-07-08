@@ -1,5 +1,5 @@
 {
-  "specVersion": "1.3.0",
+  "specVersion": "1.4.0",
   "appId": "human-lab",
   "status": "ready",
   "identity": {
@@ -176,6 +176,23 @@
       "source": "facebook",
       "medium": "paid_social",
       "campaign": "human-lab-validation"
+    },
+    "targeting": {
+      "locations": ["United States"],
+      "ageMin": 25,
+      "ageMax": 55,
+      "interests": ["fitness", "productivity", "self-improvement"]
+    },
+    "meta": {
+      "status": null,
+      "campaignId": null,
+      "adSetId": null,
+      "creativeId": null,
+      "adId": null,
+      "landingUrl": null,
+      "dailyBudget": null,
+      "createdAt": null,
+      "lastSyncedAt": null
     }
   },
   "tracking": {
@@ -219,28 +236,25 @@
       "killThreshold": "CPA above $20 after 50% of budget spent with fewer than 10 email signups",
       "minSampleSize": 200,
       "notes": "Pause for manual review if CPA is $8–$15 at day 10 with positive engagement but low conversions."
+    },
+    "thresholds": {
+      "minClicks": 200,
+      "minSignupRate": 0.05,
+      "maxCostPerSignup": 8
     }
   },
   "source": {
-<<<<<<< HEAD
-  "mockupGithubRepo": "scootero/Human-Lab",
-  "mockupBranch": "main",
-  "mockupRootDirectory": "mockup",
-  "vercelMockupProjectId": "prj_hF5X5kvGbfgPQlajR5qf1KZ7rjUt",
-  "vercelMockupProjectName": "human-lab"
-}
-=======
     "mockupGithubRepo": "scootero/Human-Lab",
     "mockupBranch": "main",
     "mockupRootDirectory": "mockup",
     "vercelMockupProjectId": "prj_hF5X5kvGbfgPQlajR5qf1KZ7rjUt",
     "vercelMockupProjectName": "human-lab"
   },
->>>>>>> 669307b (n8n WF1 docs and platform updates)
   "deployment": {
     "mockup": {
       "vercelProjectId": null,
       "url": null,
+      "deploymentUrl": null,
       "lastDeployedAt": null
     },
     "landing": {
@@ -250,5 +264,20 @@
       "lastDeployedAt": null
     },
     "githubRepoUrl": null
+  },
+  "validation": {
+    "lastCheckedAt": null,
+    "metrics": {
+      "spend": null,
+      "impressions": null,
+      "clicks": null,
+      "ctr": null,
+      "cpc": null,
+      "signups": null,
+      "signupRate": null,
+      "costPerSignup": null
+    },
+    "recommendation": null,
+    "latestReportFile": null
   }
 }
