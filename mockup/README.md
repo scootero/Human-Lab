@@ -52,11 +52,13 @@ npm run preview
 | `deployCommand` | `npx vercel deploy --prod` |
 | `previewUrl` | `null` until automation deploys |
 
-## Future automation (n8n)
+## WF1 automation
 
-1. Validate the App Package
-2. Run `installCommand` and `buildCommand` in `mockup/`
-3. Deploy static output (e.g. Vercel)
-4. Write `mockup.previewUrl`, `deployment.mockup.url`, `deployment.mockup.vercelProjectId`, and `deployment.mockup.lastDeployedAt` back to `app.json`
+1. Validate Drive `app.json` and `source.*`
+2. Trigger the prepared Vercel mockup project with GitHub `gitSource`
+3. Poll until the deployment is ready
+4. Write `mockup.previewUrl`, `deployment.mockup.url`, `deployment.mockup.deploymentUrl`, `deployment.mockup.vercelProjectId`, and `deployment.mockup.lastDeployedAt` back to `app.json`
+
+n8n does not run `installCommand`, `buildCommand`, or `deployCommand`; Vercel builds from the GitHub repo with Root Directory = `mockup`.
 
 The landing page **never imports this source**. It embeds the deployed mockup URL in an iframe after deploy.
