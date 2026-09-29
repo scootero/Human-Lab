@@ -1,4 +1,68 @@
-# Human Lab — App Package
+<div align="center">
+
+# 🧪 Human Lab
+
+**Stop guessing. Start testing.**
+
+Run short, science-backed experiments on yourself. Pick a category, follow a structured 7 to 45 day study, check in daily, and find out what actually works for your stress, sleep, energy and habits, with a mad-scientist AI guide in your corner.
+
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)
+![n8n](https://img.shields.io/badge/n8n-Automated%20Deploy-EA4B71?logo=n8n&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-Hosted-000000?logo=vercel&logoColor=white)
+![Status](https://img.shields.io/badge/iOS-Validation%20Stage-3b82f6?logo=apple&logoColor=white)
+
+</div>
+
+---
+
+## 📸 Interactive Mockup
+
+A clickable, phone-framed prototype of the full user journey:
+
+<p align="center">
+  <img src="docs/readme/human-lab-screens.png" alt="Human Lab mockup screens: welcome, categories, experiments, experiment detail, daily check-in, results" width="100%" />
+</p>
+
+<p align="center"><sub>Welcome → Pick a focus → Choose a study → Experiment protocol → Daily check-in → Results</sub></p>
+
+## ✨ Highlights
+
+- **290 curated experiments** across 20 categories, including Stress, Sleep, Energy, Focus, Fitness, Nutrition and Longevity
+- **Science-backed protocols.** Each study links to peer-reviewed sources.
+- **Daily check-ins** with sliders for stress, clarity and mood
+- **Clear results.** See the before and after change, whether your hypothesis held up, and how you compare with the community average.
+- **Dr. Einstein.** An animated mascot guide with section tours, a flask that fills up as you progress, and confetti.
+
+## 🔄 User journey
+
+```mermaid
+flowchart LR
+    A["👋 Welcome"] --> B["🗂️ Pick a focus<br/>20 categories"]
+    B --> C["📋 Choose a study"]
+    C --> D["🔬 Protocol +<br/>science sources"]
+    D -->|"Accept"| E["📅 Daily check-in<br/>7–45 days"]
+    E -->|"repeat"| E
+    E --> F["🏆 Results<br/>hypothesis supported?"]
+```
+
+## 🏭 Part of the App Validation System
+
+This repo is an **App Package**: one `app.json` manifest plus copy, media and a mockup. It feeds an automated n8n pipeline that tests demand for the app before any iOS code gets written.
+
+```mermaid
+flowchart LR
+    P["📦 App Package<br/>app.json · copy · media · mockup"] --> W0["⚙️ WF0<br/>Provision tracking"]
+    W0 --> W1["🚀 WF1<br/>Deploy mockup<br/>(Vercel)"]
+    W1 --> W2["🌐 WF2<br/>Generate + deploy<br/>landing page"]
+    W2 --> W3["📣 Meta ads"]
+    W3 --> W4["📊 Track events<br/>email · buy-now clicks"]
+    W4 --> D{"✅ Build it?"}
+```
+
+---
+
+## 📦 App Package Details
 
 Reference implementation of an [App Package](https://github.com/app-validation-spec/app-validation-spec) for the automated app validation system.
 
@@ -6,7 +70,7 @@ Reference implementation of an [App Package](https://github.com/app-validation-s
 **status:** `draft`  
 **specVersion:** `1.3.0`
 
-## Folder layout
+### Folder layout
 
 ```txt
 human-lab/
@@ -21,7 +85,7 @@ human-lab/
 
 Internal folder names are **generic and reusable**—future App Packages use the same structure regardless of framework (record framework in `app.json` → `mockup.framework` only).
 
-## Quick start
+### Quick start
 
 From this directory:
 
@@ -33,12 +97,12 @@ npm run build
 
 The root `package.json` delegates to `mockup/` via `--prefix mockup`. Do not commit `mockup/node_modules/` or `mockup/dist/`.
 
-## Landing page vs mockup
+### Landing page vs mockup
 
 - **Mockup:** Built and deployed separately from `mockup/`. n8n writes `deployment.mockup.url` (and syncs `mockup.previewUrl`) after deploy.
 - **Landing page:** Generated from `app.json`, `copy/`, and `media/`. Embeds the deployed mockup URL—it never imports mockup source directly.
 
-## Automation placeholders
+### Automation placeholders
 
 These fields exist in `app.json` but are `null` until n8n runs:
 
@@ -55,7 +119,7 @@ Legacy `tracking.webhooks.emailCaptured` and `tracking.webhooks.buyNowClicked` a
 
 Future pipeline: `draft` → `provisioning` → `ready` → validate → deploy mockup → generate landing config → deploy landing → ads → track events (`eventType`) → analytics (Sheets).
 
-## Draft → provisioning → ready checklist
+### Draft → provisioning → ready checklist
 
 Before setting `status` to `provisioning`:
 
@@ -68,9 +132,17 @@ Before setting `status` to `ready`:
 
 1. `tracking.webhookUrl` must be provisioned by n8n
 
-## Related docs
+### Related docs
 
 - [app-validation-spec/APP_PACKAGE_SPEC.md](../../app-validation-spec/APP_PACKAGE_SPEC.md)
 - [docs/README.md](docs/README.md) — internal research
 - [media/README.md](media/README.md) — asset checklist
 - [mockup/README.md](mockup/README.md) — prototype dev and deploy
+
+---
+
+<div align="center">
+
+Built by **[Scott Oliver](https://github.com/scootero)**
+
+</div>
